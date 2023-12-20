@@ -14,7 +14,6 @@ $uri = $_SERVER['REQUEST_URI'];
 $handler = $router->getHandler($method, $uri);
 
 if ($handler == null ) { 
-    echo("null");
     exit();
 }
 
