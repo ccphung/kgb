@@ -8,6 +8,6 @@ class MissionsController extends Controller {
         $this->loadModel("Missions");
         $missions = $this->Missions->getAll();
         var_dump($missions);
-        require_once('views/missions.php');
+        require_once('views/missions/index.php');
     }
 }
