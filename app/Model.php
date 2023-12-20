@@ -18,47 +18,25 @@ class Model {
         $this->_connexion = null;
 
         try {
-            $this->_connexion = new PDO('mysql:host='.$this->host.';dbame='.$this->db_name, $this->username, $this->password);
+            $this->_connexion = new PDO('mysql:host='.$this->host.'; dbname='.$this->db_name, $this->username, $this->password);
 
         } catch(PDOException $e){
                 echo "Erreur :" . $e->getMessage();
             }
-
-        //     $_connexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-        //     $emailForm = $_POST['email'];
-        //     $passwordForm = $_POST['password'];
-
-        //     $query = "SELECT * FROM admins WHERE email= :email ";
-        //     $stmt = $pdo->prepare($query);
-        //     $stmt->bindParam(':email', $emailForm);
-        //     $stmt->execute();
-
-        //     if($stmt->rowCount() == 1){
-        //         $admin = $stmt->fetch(PDO::FETCH_ASSOC);
-        //         if(password_verify($passwordForm, $admin['password'])){
-        //             header("Location: /home");
-        //             exit();
-        //         } else {
-        //             $_SESSION['error_message'] = "Mot de passe incorrect";
-        //         }
-
-        //     } else {
-        //         $_SESSION['error_message'] = "Utilisateur non trouvé";
-        //     }
-        // }
-        // catch(PDOException $e){
-        //     echo "Erreur de connexion à la base de données :" . $e->getMessage();
-        // }
-
-        // if (isset($_SESSION['error_message'])) {
-        //     echo $_SESSION['error_message'];
-        //     unset($_SESSION['error_message']);
-        // } else {
-        //     echo "Connecté avec succès";
-        // }
-
-        //     require_once 'views/login.php';
-        // }
     }
-}
+
+    public function getAll() {
+        $sql = "SELECT * FROM " . $this->table;
+        $query = $this->_connexion->prepare($sql);
+        $query->execute();
+        return $query->fetchAll();
+    }
+
+    public function getOne() {
+        $sql = "SELECT * FROM " . $this->table . " WHERE id=" . $this->id;
+        $query = $this ->_connexion->prepare($sql);
+        $query->execute();
+
+        return $query->fetch();
+    }
+    }
