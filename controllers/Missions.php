@@ -7,7 +7,6 @@ class Missions extends Controller {
     public function index() {
         $this->loadModel("Mission");
         $missions = $this->Mission->getAll();
-        var_dump($missions);
-        $this->render('index');
+        $this->render('index', ['missions' => $missions]);
     }
 }
