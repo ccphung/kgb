@@ -3,6 +3,7 @@ require_once('app/Controller.php');
 
 class Login extends Controller {
     public function index() { 
-        $this->render('index');
+        $title = "Connexion";
+        $this->render('index', ['title' => $title]);
     }
 }

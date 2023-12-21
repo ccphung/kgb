@@ -7,6 +7,13 @@ class Missions extends Controller {
     public function index() {
         $this->loadModel("Mission");
         $missions = $this->Mission->getAll();
-        $this->render('index', ['missions' => $missions]);
+        $title = "Missions";
+        $this->render('index', ['missions' => $missions, 'title' => $title]);
+    }
+
+    public function details($id) {
+        $title = "test";
+        echo $id;
+
     }
 }

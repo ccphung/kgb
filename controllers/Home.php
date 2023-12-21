@@ -3,8 +3,7 @@ require_once('app/Controller.php');
 
 class Home extends Controller {
     public function index() { 
-        $this->render('index');
-
+        $title = "Accueil";
+        $this->render('index', ['title' => $title]);
     }
-
 }
