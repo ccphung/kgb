@@ -25,3 +25,9 @@ h1 {
     background-color: rgb(255, 255, 255);
     color: black;
 }
+
+/* Navbar */
+.login-nav {
+    position: absolute;
+    right:5%;
+}
