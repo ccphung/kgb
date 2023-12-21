@@ -27,7 +27,14 @@ h1 {
 }
 
 /* Navbar */
-.login-nav {
+@media (min-width:1000px) {
+    .login-nav {
     position: absolute;
     right:5%;
+}
+}
+
+
+.logo {
+    height:30px;
 }
