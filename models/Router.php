@@ -12,18 +12,21 @@ class Router {
         'action' => $action
     ];    
 }
-public function getHandler(string $method, string $uri) { 
+
+public function getHandler(string $method, string $uri) {
     foreach ($this->routes as $route) {
         if ($route['method'] === $method) {
             $pattern = '~^' . $route['path'] . '$~';
-            if (preg_match($pattern, $uri)) {
+            if (preg_match($pattern, $uri, $matches)) {
                 return [
                     'controller' => $route['controller'],
-                    'action' => $route['action']
+                    'action' => $route['action'],
+                    'params' => isset($matches[1]) ? ['id' => $matches[1]] : []
                 ];
             }
         }
     }
     return null;
- }
+}
+
 }
