@@ -5,7 +5,8 @@ abstract class Controller {
         $this->$model = new $model();
     }
 
-    public function render(string $file){
+    public function render(string $file, array $data = []){
+        extract($data);
         require_once(BASE_URL.'\\views\\'.strtolower(get_class($this)).'\\'.$file.'.php');
     }
 
