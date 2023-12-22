@@ -12,7 +12,7 @@
                   <a class="nav-link active" href='/home'>Accueil</a>
               </li>
               <li class="nav-item">
-                  <a class="nav-link" href="#">Agents</a>
+                  <a class="nav-link" href="/agents">Agents</a>
               </li>
               <li class="nav-item">
                   <a class="nav-link" href="/missions">Missions</a>

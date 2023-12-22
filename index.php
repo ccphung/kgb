@@ -9,11 +9,13 @@ require_once 'models/Router.php';
 require_once 'controllers/Home.php';
 require_once 'controllers/Login.php';
 require_once 'controllers/Missions.php';
+require_once 'controllers/Agents.php';
 
 $router = new Router();
 
 $router->addRoute('GET', '/home', 'Home', 'index');
 $router->addRoute('GET', '/login', 'Login', 'index');
+$router->addRoute('GET', '/agents', 'Agents', 'index');
 $router->addRoute('GET', '/missions', 'Missions', 'index');
 $router->addRoute('GET', '/missions/(\d+)', 'Missions', 'details');
 
