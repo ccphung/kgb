@@ -13,8 +13,8 @@ class Model {
     public $table;
     public $id;
 
-    public function getConnection(){
-        //on efface la connexion précédente
+    public function getConnexion(){
+        //Efface la connexion précédente
         $this->_connexion = null;
 
         try {

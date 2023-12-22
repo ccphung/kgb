@@ -2,12 +2,12 @@
 body {
     background: black;
     color:white;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-family: 'Lato', sans-serif;
 }
 
 /* Login page */
-h1 {
-    font-family: 'Lato', sans-serif;
+h1, h3, h5 {
+    font-family: 'Courier Prime', monospace;
 }
 
 .login-container {
@@ -31,9 +31,8 @@ h1 {
     .login-nav {
     position: absolute;
     right:5%;
+    }
 }
-}
-
 
 .logo {
     height:30px;

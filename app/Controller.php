@@ -1,4 +1,5 @@
 <?php
+
 abstract class Controller {
     public function loadModel(string $model) {
         require_once(BASE_URL.'\\models\\'.$model.'.php');
