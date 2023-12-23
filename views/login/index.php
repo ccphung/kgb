@@ -1,4 +1,4 @@
-    <h1 class="login-title text-center mt-5">Connexion</h1>
+    <h1 class="text-center mt-5">Connexion</h1>
     <div class="login-container mt-5">
         <form method ="POST">
             <div class="p-2">
