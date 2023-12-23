@@ -21,12 +21,10 @@
         Statut : <?=$datas[0]['status']?>
     </h5>
     
-    <div class="d-flex justify-content-center">
-        <div class="col-8 card m-2">
-            <div class="card-body">
+    <div class="d-flex justify-content-center text-center">
+        <div class="col-8 m-2 p-2 border border-white">
                 <h5 class="card-title text-center">Objectif</h5>
                 <p class="card-text"><?=$mission['description']?></p>
-            </div>
         </div>
     </div>
 
