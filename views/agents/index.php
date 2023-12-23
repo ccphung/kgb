@@ -1,5 +1,6 @@
 <div class="container-fluid">
     <div class="row">
+        <h1 class="text-center mt-3">Liste des agents</h1>
         <?php foreach ($agents as $agent): ?>
             <div class="col m-3 d-flex justify-content-center">
                 <div class="card" style="width: 18rem;">
