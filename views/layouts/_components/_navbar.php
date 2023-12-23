@@ -15,6 +15,9 @@
                   <a class="nav-link" href="/agents">Agents</a>
               </li>
               <li class="nav-item">
+                  <a class="nav-link" href="/contacts">Contacts</a>
+              </li>
+              <li class="nav-item">
                   <a class="nav-link" href="/missions">Missions</a>
               </li>
               <li class="nav-item login-nav">
