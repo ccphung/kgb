@@ -1,6 +1,6 @@
 <div class="container mt-5">
-    <h1 class="text-center text-danger"><?=$mission['code_name']?></h1>
-    <h3 class="text-center"><?=$mission['title']?></h3>
+    <h1 class="text-center"><?=$mission['code_name']?></h1>
+    <h3 class="text-center color-red"><?=$mission['title']?></h3>
     <h5 class="text-center 
         <?php 
             switch ($datas[0]['status']) {
@@ -29,41 +29,41 @@
     </div>
 
     <div class="row d-flex justify-content-center">
-        <div class="col-8 col-md-3 card m-2 bg-light">
+        <div class="col-8 col-md-3 card m-2 bg-dark">
             <div class="card-body">
-                <h5 class="card-title"><i class="fa-solid fa-user-tie"></i></i> Agents</h5>
+                <h5 class="card-title text-white"><i class="fa-solid fa-user-tie"></i></i> Agents</h5>
                 <ul>
                     <?php
                         foreach ($agents as $agent) {
                         echo 
-                        '<li class="card-text">'. ucfirst($agent['first_name']) . ' ' . ucfirst($agent['last_name']). ' ( Agent ' . $agent['agent_code'] . ' ) </li>';
+                        '<li class="card-text text-white">'. ucfirst($agent['first_name']) . ' ' . ucfirst($agent['last_name']). ' ( Agent ' . $agent['agent_code'] . ' ) </li>';
                         }
                     ?>
                 </ul>
             </div>
         </div>
 
-        <div class="col-8 col-md-3 card m-2 bg-light">
+        <div class="col-8 col-md-3 card m-2 bg-dark">
             <div class="card-body">
-                <h5 class="card-title"><i class="fa-solid fa-bullseye"></i> Cibles</h5>
+                <h5 class="card-title text-white"><i class="fa-solid fa-bullseye"></i> Cibles</h5>
                 <ul>
                     <?php
                         foreach ($targets as $target) {
                         echo 
-                        '<li class="card-text">' . ucfirst($target['first_name']) . ' ' . ucfirst($agent['last_name']). ' (' . $target['code_name'] . ') </li>';
+                        '<li class="card-text text-white">' . ucfirst($target['first_name']) . ' ' . ucfirst($agent['last_name']). ' (' . $target['code_name'] . ') </li>';
                         }
                     ?>
                 </ul>
             </div>
         </div>
-        <div class="col-8 col-md-3 card m-2 bg-light">
+        <div class="col-8 col-md-3 card m-2 bg-dark">
             <div class="card-body">
-                <h5 class="card-title"><i class="fa-solid fa-address-book"></i> Contacts</h5>
+                <h5 class="card-title text-white"><i class="fa-solid fa-address-book"></i> Contacts</h5>
                 <ul>
                     <?php
                         foreach ($contacts as $contact) {
                         echo 
-                        '<li class="card-text">' . ucfirst($contact['first_name']) . ' ' . ucfirst($agent['last_name']). ' (' . $contact['code_name'] . ') </li>';
+                        '<li class="card-text text-white">' . ucfirst($contact['first_name']) . ' ' . ucfirst($agent['last_name']). ' (' . $contact['code_name'] . ') </li>';
                         }
                     ?>
                 </ul>
@@ -71,8 +71,8 @@
         </div>
 
             <div class="row d-flex justify-content-center">
-                <div class="col-8 col-md-5 card m-2 bg-light">
-                    <div class="card-body">
+                <div class="col-8 col-md-5 card m-2 bg-dark">
+                    <div class="card-body text-white">
                         <h5 class="card-title">
                             <i class="fa-solid fa-list"></i> 
                             Détails
@@ -102,14 +102,14 @@
                         </ul>
                     </div>
                 </div>
-                <div class="col-8 col-md-5 card m-2">
-                    <div class="card-body">
-                        <h5 class="card-title"><i class="fa-solid fa-house"></i></i> Planque</h5>
+                <div class="col-8 col-md-5 card m-2 bg-dark">
+                    <div class="card-body ">
+                        <h5 class="card-title text-white" ><i class="fa-solid fa-house"></i></i> Planque</h5>
                         <ul>
-                            <li>Code : <?=$datas[0]['code'];?></li>
-                            <li>Adresse : <?=$datas[0]['address'];?></li>
-                            <li>Pays : <?=$datas[0]['stakeout_country'];?></li>
-                            <li>Type : <?=$datas[0]['type'];?></li>   
+                            <li class="card-text text-white">Code : <?=$datas[0]['code'];?></li>
+                            <li class="card-text text-white">Adresse : <?=$datas[0]['address'];?></li>
+                            <li class="card-text text-white">Pays : <?=$datas[0]['stakeout_country'];?></li>
+                            <li class="card-text text-white">Type : <?=$datas[0]['type'];?></li>   
                         </ul>
                     </div>
                 </div>
