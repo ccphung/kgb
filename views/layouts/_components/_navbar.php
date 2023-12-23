@@ -15,10 +15,10 @@
                   <a class="nav-link" href="/agents">Agents</a>
               </li>
               <li class="nav-item">
-                  <a class="nav-link" href="/targets">Contacts</a>
+                  <a class="nav-link" href="/targets">Cibles</a>
               </li>
               <li class="nav-item">
-                  <a class="nav-link" href="/contacts">Cibles</a>
+                  <a class="nav-link" href="/contacts">Contacts</a>
               </li>
               <li class="nav-item">
                   <a class="nav-link" href="/missions">Missions</a>
