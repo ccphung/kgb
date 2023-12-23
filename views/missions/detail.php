@@ -50,7 +50,7 @@
                     <?php
                         foreach ($targets as $target) {
                         echo 
-                        '<li class="card-text text-white">' . ucfirst($target['first_name']) . ' ' . ucfirst($agent['last_name']). ' (' . $target['code_name'] . ') </li>';
+                        '<li class="card-text text-white">' . ucfirst($target['first_name']) . ' ' . ucfirst($target['last_name']). ' (' . $target['code_name'] . ') </li>';
                         }
                     ?>
                 </ul>
@@ -63,7 +63,7 @@
                     <?php
                         foreach ($contacts as $contact) {
                         echo 
-                        '<li class="card-text text-white">' . ucfirst($contact['first_name']) . ' ' . ucfirst($agent['last_name']). ' (' . $contact['code_name'] . ') </li>';
+                        '<li class="card-text text-white">' . ucfirst($contact['first_name']) . ' ' . ucfirst($contact['last_name']). ' (' . $contact['code_name'] . ') </li>';
                         }
                     ?>
                 </ul>
