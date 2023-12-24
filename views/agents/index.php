@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container-fluid">
     <h1 class="text-center mt-3">Liste des agents</h1>
     <table class="table table-dark">
         <thead>
@@ -7,7 +7,6 @@
             <th>Nom</th>
             <th>Date de naissance</th>
             <th>Pays</th>
-            <th></th>
         </thead>
         <tbody>
             <?php foreach ($agents as $agent): ?>

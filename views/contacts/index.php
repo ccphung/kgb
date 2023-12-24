@@ -8,7 +8,6 @@
                 <th>Nom de code</th>
                 <th>Date de naissance</th>
                 <th>Pays</th>
-                <th></th>
             </thead>
             <tbody>
                 <?php foreach ($contacts as $contact): ?>
