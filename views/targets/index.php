@@ -1,30 +1,43 @@
 <div class="container-fluid">
     <div class="row">
         <h1 class="text-center mt-3">Liste des cibles</h1>
-        <?php foreach ($targets as $target): ?>
-            <div class="col m-3 d-flex justify-content-center">
-                <div class="card" style="width: 18rem;">
-                    <img src="../../public/images/target.png" class="card-img-top" alt="target">
-                    <div class="card-body">
-                        <h5 class="card-title"><?= $target['first_name'] ?> <?= $target['last_name'] ?></h5>
-                        <p class="card-text">
-                            <i class="fa-solid fa-cake-candles"></i>
-                            <?= $target['birth_date'] ?>
-                        </p>
-                        <p class="card-text">
-                            <i class="fa-solid fa-globe"></i>
-                            <?= $target['name'] ?>
-                        </p>
-                        <p class="card-text">
-                            <i class="fa-solid fa-barcode"></i>
-                            <?= $target['code_name'] ?>
-                        </p>
-                    </div>
-                </div>
-        </div>
-            <?php endforeach; ?>
-            </div>
+        <table class="table table-dark">
+            <thead>
+                <th>Prénom</th>
+                <th>Nom</th>
+                <th>Nom de code</th>
+                <th>Date de naissance</th>
+                <th>Pays</th>
+                <th></th>
+            </thead>
+            <tbody>
+                <?php foreach ($targets as $target): ?>
+                    <tr>
+                        <td><?= ucfirst($target['first_name']) ?></td>
+                        <td><?= ucfirst($target['last_name']) ?></td>
+                        <td><?= ucfirst($target['code_name']) ?></td>
+                        <td><?= date('d-m-Y', strtotime($target['birth_date']))?></td>
+                        <td><?= $target['name'] ?></td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
     </div>
+    <nav>
+        <ul class="pagination">
+            <li class="page-item <?= $currentPage == 1 ? "disabled" : ""?>">
+                <a href="?page=<?= $currentPage - 1 ?>" class="page-link">Précédente</a>
+            </li>
+            <?php for ($i = 1; $i <= $pagination['pages']; $i++): ?>
+                <li class="page-item <?= $currentPage == $i ? "active" : "" ?>">
+                    <a href="?page=<?= $i ?>" class="page-link"><?= $i ?></a>
+                </li>
+            <?php endfor; ?>
+            <li class="page-item <?= $currentPage == $pagination['pages'] ? "disabled" : ""?>">
+                <a href="?page=<?= $currentPage + 1 ?>" class="page-link">Suivante</a>
+            </li>
+        </ul>
+    </nav>
 </div>
 
 

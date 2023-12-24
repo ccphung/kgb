@@ -23,6 +23,7 @@ $router->addRoute('GET', '/agents(\?page=\d+)?$', 'Agents', 'index');
 $router->addRoute('GET', '/contacts', 'Contacts', 'index');
 $router->addRoute('GET', '/contacts(\?page=\d+)?$', 'Contacts', 'index');
 $router->addRoute('GET', '/targets', 'Targets', 'index');
+$router->addRoute('GET', '/targets(\?page=\d+)?$', 'Contacts', 'index');
 $router->addRoute('GET', '/missions', 'Missions', 'index');
 $router->addRoute('GET', '/missions/(\d+)', 'Missions', 'details');
 
