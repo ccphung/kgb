@@ -6,11 +6,18 @@ class Missions extends Controller {
     protected $MissionAgent;
 
     public function index() {
+        $currentPage = isset($_GET['page']) ? (int) $_GET['page'] : 1;
+
         $this->loadModel("Mission");
-    
-        $missions = $this->Mission->getAll();
         $title = "Missions";
-        $this->render('index', ['missions' => $missions, 'title' => $title]);
+        $missions = $this->Mission->getAll();
+        $paginationInfo = $this->Mission->pagination();
+
+        $this->render('index', [
+        'missions' => $missions, 
+        'title' => $title,
+        'currentPage' => $currentPage,
+        'pagination' => $paginationInfo,]);
     }
 
     public function details($id) {

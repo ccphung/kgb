@@ -26,10 +26,21 @@ class Model {
     }
 
     public function getAll() {
-        $sql = "SELECT * FROM " . $this->table;
+        $paginationInfo = $this->pagination();
+
+        $sql = "SELECT * FROM " . $this->table . " LIMIT :first, :perPage";
+
         $query = $this->_connexion->prepare($sql);
+
+        $query = $this->_connexion->prepare($sql);
+        $query->bindValue(':first', $paginationInfo['first'], PDO::PARAM_INT);
+        $query->bindValue(':perPage', $paginationInfo['perPage'], PDO::PARAM_INT);
+
         $query->execute();
-        return $query->fetchAll();
+
+        $result = $query->fetchAll(PDO::FETCH_ASSOC);
+    
+        return $result;
     }
 
     public function getOne() {
