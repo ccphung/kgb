@@ -51,7 +51,7 @@ class Model {
         $total =(int) $result['total'];
         
         //Nombre d'éléments par page
-        $perPage = 2;
+        $perPage = 4;
 
         //Nombre de pages nécessaires (arrondi au supérieur)
         $pages = ceil($total / $perPage);
