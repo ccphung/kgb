@@ -1,3 +1,8 @@
+<div>
+    <a href="/missions">
+        <h4 class="btn btn-secondary mt-2">< Retour</h4>
+    </a>
+</div>
 <div class="container mt-5">
     <h1 class="text-center"><?=$mission['code_name']?></h1>
     <h3 class="text-center color-red"><?=$mission['title']?></h3>
