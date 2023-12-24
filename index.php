@@ -19,6 +19,7 @@ $router = new Router();
 $router->addRoute('GET', '/home', 'Home', 'index');
 $router->addRoute('GET', '/login', 'Login', 'index');
 $router->addRoute('GET', '/agents', 'Agents', 'index');
+$router->addRoute('GET', '/agents(\?page=\d+)?$', 'Agents', 'index');
 $router->addRoute('GET', '/contacts', 'Contacts', 'index');
 $router->addRoute('GET', '/targets', 'Targets', 'index');
 $router->addRoute('GET', '/missions', 'Missions', 'index');
@@ -30,6 +31,8 @@ $handler = $router->getHandler($method, $uri);
 
 if ($handler == null) {
     echo "La page demandée n'existe pas.";
+    var_dump($_GET);
+    echo "URL: " . $_SERVER['REQUEST_URI'];
     exit();
 }
 

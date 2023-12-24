@@ -18,5 +18,4 @@ abstract class Controller {
 
         require_once(BASE_URL.'/views/layouts/default.php');
     }
-
 }

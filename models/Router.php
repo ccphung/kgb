@@ -28,5 +28,4 @@ public function getHandler(string $method, string $uri) {
     }
     return null;
 }
-
 }

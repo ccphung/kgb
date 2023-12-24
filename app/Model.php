@@ -39,4 +39,27 @@ class Model {
 
         return $query->fetch();
     }
+
+    public function pagination() {
+        $currentPage = isset($_GET['page']) ? (int) $_GET['page'] : 1 ;
+
+        // Récupérer le nombre total d'éléments
+        $sql = "SELECT COUNT(*) AS total FROM " . $this ->table;
+        $query= $this->_connexion->prepare($sql);
+        $query->execute();
+        $result = $query->fetch();
+        $total =(int) $result['total'];
+        
+        //Nombre d'éléments par page
+        $perPage = 2;
+
+        //Nombre de pages nécessaires (arrondi au supérieur)
+        $pages = ceil($total / $perPage);
+
+        $pages = intval($pages);
+        
+        $first = ($currentPage * $perPage) - $perPage;
+
+        return ['first' => $first, 'perPage' => $perPage, 'pages' => $pages];
+    }
     }
