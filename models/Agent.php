@@ -2,7 +2,6 @@
 require_once('app/Model.php');
 
 class Agent extends Model {
-    private $currentPage;
     public function __construct(){
         $this->table = "agents";
         $this->getConnexion();
@@ -11,7 +10,6 @@ class Agent extends Model {
 
     public function getAllAgents () {
         $paginationInfo = $this->pagination();
-        $this->currentPage = isset($_GET['page']) ? (int) $_GET['page'] : 1;
         
         $sql = "SELECT p.first_name, p.last_name, p.birth_date, c.name, a.agent_code
         FROM agents a
