@@ -17,6 +17,5 @@ class Targets extends Controller {
         'title' => $title,
         'currentPage' => $currentPage,
         'pagination' => $paginationInfo,]);
-
     }
 }
