@@ -12,6 +12,7 @@ require_once 'controllers/Missions.php';
 require_once 'controllers/Agents.php';
 require_once 'controllers/Contacts.php';
 require_once 'controllers/Targets.php';
+require_once 'controllers/AuthController.php';
 
 
 $router = new Router();
@@ -23,6 +24,8 @@ $router->addRoute('GET', '/contacts(\?page=\d+)?$', 'Contacts', 'index');
 $router->addRoute('GET', '/targets(\?page=\d+)?$', 'Targets', 'index');
 $router->addRoute('GET', '/missions/(\d+)', 'Missions', 'details');
 $router->addRoute('GET', '/missions(\?page=\d+)?$', 'Missions', 'index');
+$router->addRoute('POST', '/login', 'AuthController', 'login');
+$router->addRoute('GET', '/logout', 'AuthController', 'logout');
 
 $method = $_SERVER['REQUEST_METHOD'];
 $uri = $_SERVER['REQUEST_URI'];

@@ -14,6 +14,8 @@ class Router {
 }
 
 public function getHandler(string $method, string $uri) {
+    session_start();
+    
     foreach ($this->routes as $route) {
         if ($route['method'] === $method) {
             $pattern = '~^' . $route['path'] . '$~';

@@ -24,9 +24,15 @@
                   <a class="nav-link" href="/missions">Missions</a>
               </li>
               <li class="nav-item login-nav">
-                  <a class="nav-link" href="/login">
-                      <i class="fa-solid fa-user"></i>
-                      <span>Se connecter</span>
+              <a class="nav-link" href="<?php echo isset($_SESSION['user']) ? '/logout' : '/login'; ?>">
+                    <span>
+                        <i class="fa-solid fa-user"></i>
+                        <?php if(isset($_SESSION['user'])) {
+                            echo "Se déconnecter";
+                        }   else {
+                            echo "Se connecter";
+                        } ?>
+                    </span>
                   </a>
               </li>
           </ul>
