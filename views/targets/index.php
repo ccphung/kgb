@@ -23,7 +23,7 @@
         </table>
     </div>
     <nav>
-        <ul class="pagination">
+        <ul class="pagination mt-3">
             <li class="page-item <?= $currentPage == 1 ? "disabled" : ""?>">
                 <a href="?page=<?= $currentPage - 1 ?>" class="page-link">Précédente</a>
             </li>
