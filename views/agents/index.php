@@ -1,6 +1,6 @@
 <div class="container-fluid">
     <h1 class="text-center mt-3">Liste des agents</h1>
-    <table class="table table-dark">
+    <table class="table table-dark" id="myTable">
         <thead>
             <th>Code Agent</th>
             <th>Prénom</th>
@@ -20,7 +20,7 @@
             <?php endforeach; ?>
         </tbody>
     </table>
-    <nav>
+    <nav class="mt-3">
         <ul class="pagination">
             <li class="page-item <?= $currentPage == 1 ? "disabled" : ""?>">
                 <a href="?page=<?= $currentPage - 1 ?>" class="page-link">Précédente</a>
@@ -37,4 +37,4 @@
     </nav>
 </div>
 
-<?php
+

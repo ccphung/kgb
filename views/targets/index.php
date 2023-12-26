@@ -1,7 +1,7 @@
 <div class="container-fluid">
     <div class="row">
         <h1 class="text-center mt-3">Liste des cibles</h1>
-        <table class="table table-dark">
+        <table class="table table-dark" id="myTable">
             <thead>
                 <th>Prénom</th>
                 <th>Nom</th>
@@ -38,7 +38,3 @@
         </ul>
     </nav>
 </div>
-
-
-
-

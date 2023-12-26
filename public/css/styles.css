@@ -13,8 +13,6 @@ h1, h3, h5 {
 }
 /* Login page */
 
-
-
 .login-container {
     display:flex;
     justify-content: center;
@@ -44,4 +42,9 @@ h1, h3, h5 {
 
 .logo {
     height:30px;
+}
+
+/* Filtre */
+#myTable_filter input {
+    margin: 10px;
 }
