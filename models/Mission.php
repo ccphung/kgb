@@ -6,6 +6,25 @@ class Mission extends Model {
         $this->table = "missions";
         $this->getConnexion();
     }
+
+    public function getAllMissions(){
+        $paginationInfo = $this->pagination();
+
+        $sql = "SELECT m.code_name, m.title, s.name AS status, m.id
+        FROM missions m
+        JOIN status s ON s.id = m.mission_status LIMIT :first, :perPage";
+
+        $query = $this->_connexion->prepare($sql);
+        $query->bindValue(':first', $paginationInfo['first'], PDO::PARAM_INT);
+        $query->bindValue(':perPage', $paginationInfo['perPage'], PDO::PARAM_INT);
+
+        $query->execute();
+
+        $result = $query->fetchAll();
+
+        return $result;
+    }
+
     public function getAgentsForMission($missionId) {
         $sql = "SELECT p.first_name, p.last_name, a.agent_code
         FROM agent_mission am

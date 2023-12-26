@@ -26,15 +26,9 @@ class Model {
     }
 
     public function getAll() {
-        $paginationInfo = $this->pagination();
-
-        $sql = "SELECT * FROM " . $this->table . " LIMIT :first, :perPage";
+        $sql = "SELECT * FROM " . $this->table;
 
         $query = $this->_connexion->prepare($sql);
-
-        $query = $this->_connexion->prepare($sql);
-        $query->bindValue(':first', $paginationInfo['first'], PDO::PARAM_INT);
-        $query->bindValue(':perPage', $paginationInfo['perPage'], PDO::PARAM_INT);
 
         $query->execute();
 

@@ -10,7 +10,7 @@ class Missions extends Controller {
 
         $this->loadModel("Mission");
         $title = "Missions";
-        $missions = $this->Mission->getAll();
+        $missions = $this->Mission->getAllMissions();
         $paginationInfo = $this->Mission->pagination();
 
         $this->render('index', [
@@ -33,7 +33,7 @@ class Missions extends Controller {
         $targetsForMission = $this->Mission->getTargetForMission($id);
 
         $contactForMission = $this->Mission->getContactForMission($id);
-        
+
         $title = "Detail mission";
 
         $this->render('detail', ['mission'=>$mission, 'agents' => $agentsForMission, 'title' => $title, 'datas'=>$missionDatas, 'targets' => $targetsForMission,
