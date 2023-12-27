@@ -3,7 +3,7 @@
 require_once('app/Model.php');
 
 class User extends Model {
-    // private $id;
+    public $id;
     private $email;
     private $first_name;
     private $last_name;
