@@ -98,10 +98,12 @@
                             <li class="card-text"> Dates : 
                                 <ul>
                                     <li class="card-text">
-                                        Début : <?= $mission['start_date']?>
+                                        Début : <?= 
+                                        date('d-m-Y', strtotime($mission['start_date']))
+                                        ?>
                                     </li>
                                     <?php if($datas[0]['status'] !== "En préparation" &&  $datas[0]['status'] !== "En cours") {
-                                        echo "<li class='card-text'>Fin :" .  $mission['end_date'] ."</li>";
+                                        echo "<li class='card-text'>Fin :" .  date('d-m-Y', strtotime($mission['end_date'])) ."</li>";
                                     }
                                     ?>
                                 </ul>
