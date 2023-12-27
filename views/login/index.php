@@ -1,3 +1,10 @@
+<?php
+    if (isset($_SESSION['error_message'])) {
+        echo '<div class="text-danger text-center mt-3">' . $_SESSION['error_message'] . '</div>';
+        unset($_SESSION['error_message']);
+    }
+?>
+
 <h1 class="text-center mt-5">Connexion</h1>
 <div class="login-container mt-5">
     <form  method ="POST">
@@ -11,12 +18,6 @@
         </div>
         <div class="p-2">
             <input type="submit" class="login-btn btn mt-2" value="Se connecter">
-            <?php
-                if (isset($_SESSION['error_message'])) {
-                    echo '<div class="text-alert">' . $_SESSION['error_message'] . '</div>';
-                    unset($_SESSION['error_message']);
-                }
-            ?>
         </div>
     </form>
 </div>
