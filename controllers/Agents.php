@@ -63,12 +63,12 @@ class Agents extends Controller {
             foreach ($selectedSpecialties as $specialtyId) {
                 
             }
-                header("Location: ");
-                exit();
+            $_SESSION['success_message'] = "L'agent a bien été créé !";
+            header("Location: /agents");
+            exit();
             }
         
     }}
-
             public function createForm() {
                 $countries = $this->Agent->getCountries();
                 $specialties = $this->Agent->getSpecialties();

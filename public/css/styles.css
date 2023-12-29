@@ -18,6 +18,14 @@ h1, h3, h5 {
     font-weight: bold;
     padding: 5px;
 }
+
+.bg-green {
+    background: rgb(177, 224, 177);
+    border-radius: 3px;
+    font-weight: bold;
+    padding: 5px;
+}
+
 /* Login page */
 
 .login-container {
