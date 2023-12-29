@@ -13,7 +13,6 @@ class Contacts extends Controller {
     public function index() {
 
         $currentPage = isset($_GET['page']) ? (int) $_GET['page'] : 1;
-
         $title = "Contacts";
         $paginationInfo = $this->Contact->pagination();
         $contacts = $this->Contact->getAllContacts();
