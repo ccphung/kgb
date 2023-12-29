@@ -1,4 +1,10 @@
 <div class="container-fluid">
+    <?php     
+    if(isset($_SESSION['user']) && !empty($_SESSION['user']['id'])){
+        echo  '<a class="btn btn-primary mt-3" href="/agents/add">Ajouter un agent</a>';
+    }
+    ?>
+
     <h1 class="text-center mt-3">Liste des agents</h1>
     <table class="table table-dark" id="myTable">
         <thead>
