@@ -26,6 +26,8 @@ $router->addRoute('GET', '/contacts(\?page=\d+)?$', 'Contacts', 'index');
 $router->addRoute('GET', '/contacts/add', 'Contacts', 'createForm');
 $router->addRoute('POST', '/contacts/post', 'Contacts', 'processForm');
 $router->addRoute('GET', '/targets(\?page=\d+)?$', 'Targets', 'index');
+$router->addRoute('GET', '/targets/add', 'Targets', 'createForm');
+$router->addRoute('POST', '/targets/post', 'Targets', 'processForm');
 $router->addRoute('GET', '/missions/(\d+)', 'Missions', 'details');
 $router->addRoute('GET', '/missions(\?page=\d+)?$', 'Missions', 'index');
 $router->addRoute('POST', '/login', 'AuthController', 'login');
