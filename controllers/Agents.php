@@ -15,7 +15,6 @@ class Agents extends Controller {
     public function index() {
 
         $currentPage = isset($_GET['page']) ? (int) $_GET['page'] : 1;
-
         $title = "Agents";
         $paginationInfo = $this->Agent->pagination();
         $agents = $this->Agent->getAllAgents();

@@ -14,7 +14,6 @@ class Contacts extends Controller {
 
         $currentPage = isset($_GET['page']) ? (int) $_GET['page'] : 1;
 
-        $this->loadModel("Contact");
         $title = "Contacts";
         $paginationInfo = $this->Contact->pagination();
         $contacts = $this->Contact->getAllContacts();

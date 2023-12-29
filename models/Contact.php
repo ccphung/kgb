@@ -42,5 +42,5 @@ class Contact extends Model {
         
         $query->execute();
 
-}
+    }
 }
