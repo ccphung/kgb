@@ -20,6 +20,8 @@ $router = new Router();
 $router->addRoute('GET', '/home', 'Home', 'index');
 $router->addRoute('GET', '/login', 'Login', 'index');
 $router->addRoute('GET', '/agents(\?page=\d+)?$', 'Agents', 'index');
+$router->addRoute('GET', '/agents/add', 'Agents', 'createForm');
+$router->addRoute('POST', '/agents/post', 'Agents', 'processForm');
 $router->addRoute('GET', '/contacts(\?page=\d+)?$', 'Contacts', 'index');
 $router->addRoute('GET', '/targets(\?page=\d+)?$', 'Targets', 'index');
 $router->addRoute('GET', '/missions/(\d+)', 'Missions', 'details');
