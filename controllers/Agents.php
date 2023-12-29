@@ -56,16 +56,15 @@ class Agents extends Controller {
                 $agent->personId = $personId;
                 $agent->agentCode = $agentCode;
     
-            // Insère le nouvel agent dans la base de données
                 $agent->insertAgent();
-    
-            // Insère les spécialités de l'agent
-            foreach ($selectedSpecialties as $specialtyId) {
+
+                foreach ($selectedSpecialties as $specialtyId) {
                 
-            }
-            $_SESSION['success_message'] = "L'agent a bien été créé !";
-            header("Location: /agents");
-            exit();
+                }
+
+                $_SESSION['success_message'] = "L'agent a bien été créé !";
+                header("Location: /agents");
+                exit();
             }
         }
     }   
