@@ -18,17 +18,22 @@ class Model {
         $this->_connexion = null;
 
         try {
-            $this->_connexion = new PDO('mysql:host='.$this->host.'; dbname='.$this->db_name, $this->username, $this->password);
+            $this->_connexion = new PDO('mysql:host='.$this->host.'; dbname='.$this->db_name,
+            $this->username, $this->password);
+
+             $this->_connexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+             return $this->_connexion;
 
         } catch(PDOException $e){
                 echo "Erreur :" . $e->getMessage();
+                return null;
             }
     }
 
     public function getAll() {
         $paginationInfo = $this->pagination();
 
-        $sql = "SELECT * FROM " . $this->table . " LIMIT :first, :perPage";
+        $sql = "SELECT * FROM " . $this->table;
 
         $query = $this->_connexion->prepare($sql);
 
@@ -49,6 +54,26 @@ class Model {
         $query->execute();
 
         return $query->fetch();
+    }
+
+    public function getCountries() {
+        $sql = "SELECT * FROM countries";
+        $query = $this ->_connexion->prepare($sql);
+        $query->execute();
+
+        $result = $query->fetchAll(PDO::FETCH_ASSOC);
+
+        return $result;
+    }
+
+    public function getSpecialties() {
+        $sql = "SELECT * FROM specialties";
+        $query = $this ->_connexion->prepare($sql);
+        $query->execute();
+
+        $result = $query->fetchAll(PDO::FETCH_ASSOC);
+
+        return $result;
     }
 
     public function pagination() {

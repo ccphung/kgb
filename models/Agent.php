@@ -2,9 +2,15 @@
 require_once('app/Model.php');
 
 class Agent extends Model {
+
+    public $agentCode;
+    public $personId;
+
     public function __construct(){
         $this->table = "agents";
         $this->getConnexion();
+        $this->getCountries();
+        $this->getSpecialties();
 
     }
 
@@ -33,4 +39,17 @@ class Agent extends Model {
         
             return $result;
         }
+
+        public function insertAgent()
+        {
+            $this->getConnexion();
+
+            $sql = "INSERT INTO agents (person_id, agent_code) VALUES (:personId, :agentCode)";
+            $query = $this->_connexion->prepare($sql);
+            $query->bindValue(':personId', $this->personId, PDO::PARAM_INT);
+            $query->bindValue(':agentCode', $this->agentCode, PDO::PARAM_INT);
+            
+            $query->execute();
+
     }
+}
