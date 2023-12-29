@@ -1,4 +1,16 @@
+<?php
+    if (isset($_SESSION['success_message'])) {
+        echo '<div class="text-success text-center mt-3 bg-green">' . $_SESSION['success_message'] . '</div>';
+        unset($_SESSION['success_message']);
+    }
+?>
+
 <div class="container-fluid">
+<?php     
+    if(isset($_SESSION['user']) && !empty($_SESSION['user']['id'])){
+        echo  '<a class="btn btn-primary mt-3" href="/contacts/add">Ajouter un contact</a>';
+    }
+    ?>
     <div class="row">
         <h1 class="text-center mt-3">Liste des contacts</h1>
         <table class="table table-dark" id="myTable">

@@ -2,6 +2,9 @@
 require_once('app/Model.php');
 
 class Contact extends Model {
+    public $codeName;
+    public $personId;
+
     public function __construct(){
         $this->table = "contacts";
         $this->getConnexion();
@@ -27,4 +30,17 @@ class Contact extends Model {
     
         return $result;
     }
+
+    public function insertContact()
+    {
+        $this->getConnexion();
+
+        $sql = "INSERT INTO contacts (person_id, code_name) VALUES (:personId, :codeName)";
+        $query = $this->_connexion->prepare($sql);
+        $query->bindValue(':personId', $this->personId, PDO::PARAM_INT);
+        $query->bindValue(':codeName', $this->codeName, PDO::PARAM_INT);
+        
+        $query->execute();
+
+}
 }
