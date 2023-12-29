@@ -1,6 +1,6 @@
 <?php
     if (isset($_SESSION['error_message'])) {
-        echo '<div class="text-danger text-center mt-3">' . $_SESSION['error_message'] . '</div>';
+        echo '<div class="text-danger text-center mt-3 bg-pink">' . $_SESSION['error_message'] . '</div>';
         unset($_SESSION['error_message']);
     }
 ?>

@@ -11,6 +11,13 @@ h1, h3, h5 {
 .color-red {
     color: rgba(255, 0, 0, 0.495);
 }
+
+.bg-pink {
+    background: pink;
+    border-radius: 3px;
+    font-weight: bold;
+    padding: 5px;
+}
 /* Login page */
 
 .login-container {
