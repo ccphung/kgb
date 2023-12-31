@@ -40,8 +40,6 @@ class Agent extends Model {
 
     public function insertAgent()
         {
-            $this->getConnexion();
-
             $sql = "INSERT INTO agents (person_id, agent_code) VALUES (:personId, :agentCode)";
             $query = $this->_connexion->prepare($sql);
             $query->bindValue(':personId', $this->personId, PDO::PARAM_INT);
@@ -50,6 +48,16 @@ class Agent extends Model {
             $query->execute();
 
         }
+    
+    public function insertAgentSpecialty()
+    {
+        $sql = "INSERT INTO agents (person_id, agent_code) VALUES (:personId, :agentCode)";
+        $query = $this->_connexion->prepare($sql);
+        $query->bindValue(':personId', $this->personId, PDO::PARAM_INT);
+        $query->bindValue(':agentCode', $this->agentCode, PDO::PARAM_INT);
+        
+        $query->execute();
+    }
 
     public function getAgentSpecialties() {
             $sql = "SELECT s.name, asp.agent_id
@@ -64,4 +72,7 @@ class Agent extends Model {
             return $result;
         }
 
+    public function getLastId() {
+        return $this->_connexion->lastInsertId();
+    }
 }

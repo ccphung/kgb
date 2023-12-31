@@ -3,6 +3,7 @@ require_once('app/Controller.php');
 require_once('core/Form.php');
 require_once('models/Agent.php');
 require_once('models/Person.php');
+require_once('models/AgentSpecialty.php');
 
 class Agents extends Controller {
     protected $Agent;
@@ -57,8 +58,12 @@ class Agents extends Controller {
     
                 $agent->insertAgent();
 
-                foreach ($selectedSpecialties as $specialtyId) {
-                
+                foreach ($selectedSpecialties as $specialty) {
+                    $agentSpecialty = new AgentSpecialty();
+                    $agentSpecialty->agentId = $agent->getLastId();
+                    $agentSpecialty->specialtyId = $specialty;
+                    
+                    $agentSpecialty->insertAgentSpecialty();
                 }
 
                 $_SESSION['success_message'] = "L'agent a bien été créé !";
@@ -67,6 +72,7 @@ class Agents extends Controller {
             }
         }
     }   
+
     public function createForm() {
         $countries = $this->Agent->getCountries();
         $specialties = $this->Agent->getSpecialties();
@@ -96,8 +102,9 @@ class Agents extends Controller {
                 ->addLabelFor('specialty', 'Spécialité :');
                 foreach ($specialties as $key => $specialty) {
                     $specialtyName = $specialty['name'];
+                    $specialtyId = $specialty['id'];
                 
-                    $form->addInput('checkbox', 'specialties[]', ['class' => 'form-check-input mt-3 m-2'], $key)
+                    $form->addInput('checkbox', 'specialties[]', ['class' => 'form-check-input mt-3 m-2'], $specialtyId)
                         ->addLabelFor($key, $specialtyName, ['class' => 'form-check-label mt-3 required']);
                 }
 
