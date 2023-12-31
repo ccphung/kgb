@@ -10,14 +10,12 @@ class Agent extends Model {
         $this->table = "agents";
         $this->getConnexion();
         $this->getCountries();
-        $this->getSpecialties();
-
     }
 
     public function getAllAgents () {
         $paginationInfo = $this->pagination();
         
-        $sql = "SELECT p.first_name, p.last_name, p.birth_date, c.name, a.agent_code
+        $sql = "SELECT a.id, p.first_name, p.last_name, p.birth_date, c.name, a.agent_code
         FROM agents a
         JOIN persons p ON p.id = a.person_id
         JOIN countries c ON p.is_from = c.id
@@ -38,9 +36,9 @@ class Agent extends Model {
             $result = $query->fetchAll(PDO::FETCH_ASSOC);
         
             return $result;
-        }
+    }
 
-        public function insertAgent()
+    public function insertAgent()
         {
             $this->getConnexion();
 
@@ -51,5 +49,19 @@ class Agent extends Model {
             
             $query->execute();
 
-    }
+        }
+
+    public function getAgentSpecialties() {
+            $sql = "SELECT s.name, asp.agent_id
+                    FROM specialties s
+                    INNER JOIN agent_specialty asp ON s.id = asp.specialty_id";
+                    
+            $query = $this->_connexion->prepare($sql);
+            $query->execute();
+
+            $result = $query->fetchAll(PDO::FETCH_ASSOC);
+
+            return $result;
+        }
+
 }

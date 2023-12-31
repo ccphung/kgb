@@ -11,19 +11,19 @@ class Agents extends Controller {
     {
         $this->loadModel("Agent");
     }
-
+    
     public function index() {
-
-        $currentPage = isset($_GET['page']) ? (int) $_GET['page'] : 1;
         $title = "Agents";
         $paginationInfo = $this->Agent->pagination();
         $agents = $this->Agent->getAllAgents();
+
+        $specialties = $this->Agent->getAgentSpecialties();
 
         $this->render('index', [
             'agents' => $agents,
             'pagination' => $paginationInfo,
             'title' => $title,
-            'currentPage' => $currentPage
+            'specialties' => $specialties,
         ]);
     }
 

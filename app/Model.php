@@ -13,6 +13,10 @@ class Model {
     public $table;
     public $id;
 
+    public function __construct() {
+        $this->_connexion = $this->getConnexion();
+    }
+
     public function getConnexion(){
         //Efface la connexion précédente
         $this->_connexion = null;
@@ -87,7 +91,7 @@ class Model {
         $total =(int) $result['total'];
         
         //Nombre d'éléments par page
-        $perPage = 4;
+        $perPage = 5;
 
         //Nombre de pages nécessaires (arrondi au supérieur)
         $pages = ceil($total / $perPage);

@@ -19,6 +19,7 @@
             <th>Prénom</th>
             <th>Nom</th>
             <th>Date de naissance</th>
+            <th>Spécialtés</th>
             <th>Pays</th>
         </thead>
         <tbody>
@@ -28,11 +29,24 @@
                     <td><?= ucfirst($agent['first_name']) ?></td>
                     <td><?= ucfirst($agent['last_name']) ?></td>
                     <td><?= date('d-m-Y', strtotime($agent['birth_date']))?></td>
-                    <td><?= $agent['name'] ?></td>
+                    <td>                    
+                        <ul>
+                            <?php foreach ($specialties as $key => $specialty) : ?>
+                                <?php if($specialty['agent_id'] == $agent['id']){
+                                    echo '<li>'. $specialty['name'].'</li>' ;
+                                } else {
+                                    echo '';
+                                } 
+                                ?>
+                            <?php endforeach; ?></td>;
+                        </ul>
+                    </td>
+                    <td><?= $agent['name'] ?>
                 </tr>
             <?php endforeach; ?>
         </tbody>
     </table>
+
     <nav class="mt-3">
         <ul class="pagination">
             <li class="page-item <?= $currentPage == 1 ? "disabled" : ""?>">
