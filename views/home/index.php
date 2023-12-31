@@ -7,8 +7,8 @@
 ?>
 
 <div class="container-fluid">
-    <div class="row">
-        <div class="col-lg-3 col-md-6 m-4">
+    <div class="row d-flex justify-content-center">
+        <div class="col-lg-3 col-md-6 m-2">
             <div class="card bg-dark text-white" style="width: 18rem;">
                 <img class="card-img-top" src="../../public/images/agent.jpg" alt="Card image cap">
                 <div class="card-body">
@@ -24,7 +24,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-3 col-md-6 m-4">
+        <div class="col-lg-3 col-md-6 m-2">
             <div class="card bg-dark text-white" style="width: 18rem;">
                 <img class="card-img-top" src="../../public/images/target.png" alt="Card image cap">
                 <div class="card-body">
@@ -38,7 +38,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-3 col-md-6 m-4">
+        <div class="col-lg-3 col-md-6 m-2">
             <div class="card bg-dark text-white" style="width: 18rem;">
                 <img class="card-img-top" src="../../public/images/contact.jpg" alt="Card image cap">
                 <div class="card-body">
@@ -53,7 +53,7 @@
             </div>
         </div>
 
-        <div class="col-lg-3 col-md-6 m-4">
+        <div class="col-lg-3 col-md-6 m-2">
             <div class="card bg-dark text-white" style="width: 18rem;">
                 <img class="card-img-top" src="../../public/images/mission.jpg" alt="Card image cap">
                 <div class="card-body">
