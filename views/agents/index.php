@@ -38,7 +38,7 @@
                                     echo '';
                                 } 
                                 ?>
-                            <?php endforeach; ?></td>;
+                            <?php endforeach; ?></td>
                         </ul>
                     </td>
                     <td><?= $agent['name'] ?>
