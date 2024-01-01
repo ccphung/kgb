@@ -85,19 +85,19 @@ class Agents extends Controller {
 
             $form->debutForm('POST', '/agents/post')
                 ->addLabelFor('firstName', 'Prénom :')
-                ->addInput('text', 'firstName', ['class' => 'form-control required'])
+                ->addInput('text', 'firstName', ['class' => 'form-control', 'required' => 'required'])
 
                 ->addLabelFor('lastName', 'Nom :')
-                ->addInput('text', 'lastName', ['class' => 'form-control'])
+                ->addInput('text', 'lastName', ['class' => 'form-control', 'required' => 'required'])
 
                 ->addLabelFor('birthDate', 'Date de naissance :')
-                ->addInput('date', 'birthDate', ['class' => 'form-control'])
+                ->addInput('date', 'birthDate', ['class' => 'form-control', 'required' => 'required'])
 
                 ->addLabelFor('country', 'Nationalité :')
-                ->addSelect('country', array_column($countries, 'name', 'id'), ['id' => 'country', 'class' => 'form-control'])
+                ->addSelect('country', array_column($countries, 'name', 'id'), ['id' => 'country', 'class' => 'form-control', 'required' => 'required'])
 
                 ->addLabelFor('agentCode', 'Code agent :')
-                ->addInput('number', 'agentCode', ['class' => 'form-control'])
+                ->addInput('number', 'agentCode', ['class' => 'form-control', 'required' => 'required'])
 
                 ->addLabelFor('specialty', 'Spécialité :');
                 foreach ($specialties as $key => $specialty) {
@@ -105,7 +105,7 @@ class Agents extends Controller {
                     $specialtyId = $specialty['id'];
                 
                     $form->addInput('checkbox', 'specialties[]', ['class' => 'form-check-input mt-3 m-2'], $specialtyId)
-                        ->addLabelFor($key, $specialtyName, ['class' => 'form-check-label mt-3 required']);
+                        ->addLabelFor($key, $specialtyName, ['class' => 'form-check-label mt-3']);
                 }
 
                 $form->addButton('Créer', ['class' => 'btn btn-primary mt-2 col-12'])
