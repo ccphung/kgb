@@ -94,4 +94,93 @@ class Mission extends Model {
     
         return $result;
     }
+
+    public function getAgentsSpecialty($specialtyId) {
+            $sql = "SELECT p.first_name, p.last_name, a.id, c.name
+                    FROM persons p
+                    JOIN agents a ON a.person_id = p.id
+                    JOIN countries c ON p.is_from = c.id
+                    JOIN agent_specialty asp ON asp.agent_id = a.id
+                    WHERE asp.specialty_id = :specialty_id";
+    
+            $query = $this->_connexion->prepare($sql);
+            $query->bindParam(':specialty_id', $specialtyId, PDO::PARAM_INT);
+            $query->execute();
+    
+            $result = $query->fetchAll(PDO::FETCH_ASSOC);
+            return $result;
+        }
+
+        public function getStakeoutCountry($countryId) {
+            $sql = "SELECT s.address, c.name, s.id
+                    FROM stakeouts s
+                    JOIN countries c ON s.is_located_in = c.id
+                    WHERE c.id = :country_id";
+    
+            $query = $this->_connexion->prepare($sql);
+            $query->bindParam(':country_id', $countryId, PDO::PARAM_INT);
+            $query->execute();
+    
+            $result = $query->fetchAll(PDO::FETCH_ASSOC);
+            return $result;
+        }
+        
+        public function getContactCountry($countryId) {
+            $sql = "SELECT p.first_name, p.last_name, c.id
+                    FROM persons p
+                    JOIN contacts ct ON ct.person_id = p.id
+                    JOIN countries c ON p.is_from = c.id
+                    WHERE c.id = :country_id";
+
+            $query = $this->_connexion->prepare($sql);
+            $query->bindParam(':country_id', $countryId, PDO::PARAM_INT);
+            $query->execute();
+    
+            $result = $query->fetchAll(PDO::FETCH_ASSOC);
+            return $result;
+        }
+
+        public function getAgentCountry($agentsIds) {
+            $placeholders = rtrim(str_repeat('?, ', count($agentsIds)), ', ');
+        
+            $sql = "SELECT c.id
+                    FROM agents a
+                    JOIN persons p ON a.person_id = p.id
+                    JOIN countries c ON p.is_from = c.id 
+                    WHERE a.id IN ($placeholders)";
+        
+            $query = $this->_connexion->prepare($sql);
+        
+            foreach ($agentsIds as $key => $agentId) {
+                $query->bindValue($key + 1, $agentId);
+            }
+        
+            $query->execute();
+        
+            $result = $query->fetchAll(PDO::FETCH_ASSOC);
+            return $result;
+        }
+
+        public function getTargetCountry($countryIds) {
+            $placeholders = rtrim(str_repeat('?, ', count($countryIds)), ', ');
+
+            $sql = "SELECT p.first_name, p.last_name, c.name, t.id
+                    FROM targets t
+                    JOIN persons p ON t.person_id = p.id
+                    JOIN countries c ON p.is_from = c.id
+                    WHERE c.id NOT IN ($placeholders)";
+
+            $query = $this->_connexion->prepare($sql);
+        
+            foreach ($countryIds as $key => $countryId) {
+                $query->bindValue($key + 1, $countryId);
+            }
+        
+            $query->execute();
+        
+            $result = $query->fetchAll(PDO::FETCH_ASSOC);
+            return $result;
+        }
 }
+
+

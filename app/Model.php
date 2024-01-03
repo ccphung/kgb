@@ -80,6 +80,75 @@ class Model {
         return $result;
     }
 
+    public function getTypes() {
+        $sql = "SELECT * FROM types";
+        $query = $this ->_connexion->prepare($sql);
+        $query->execute();
+
+        $result = $query->fetchAll(PDO::FETCH_ASSOC);
+
+        return $result;
+    }
+
+    public function getStatus() {
+        $sql = "SELECT * FROM status";
+        $query = $this ->_connexion->prepare($sql);
+        $query->execute();
+
+        $result = $query->fetchAll(PDO::FETCH_ASSOC);
+
+        return $result;
+    }
+
+    public function getStakeouts() {
+        $sql = "SELECT * FROM stakeouts";
+        $query = $this ->_connexion->prepare($sql);
+        $query->execute();
+
+        $result = $query->fetchAll(PDO::FETCH_ASSOC);
+
+        return $result;
+    }
+
+    public function getAgents() {
+        $sql = "SELECT p.first_name, p.last_name
+                FROM persons p
+                JOIN agents a ON a.person_id = p.id";
+        $query = $this ->_connexion->prepare($sql);
+        $query->execute();
+
+        $result = $query->fetchAll(PDO::FETCH_ASSOC);
+
+        return $result;
+    }
+
+    public function getContacts() {
+        $sql = "SELECT p.first_name, p.last_name
+                FROM persons p
+                JOIN contacts c ON c.person_id = p.id";
+        $query = $this ->_connexion->prepare($sql);
+        $query->execute();
+
+        $result = $query->fetchAll(PDO::FETCH_ASSOC);
+
+        return $result;
+    }
+
+
+    public function getTargets() {
+        $sql = "SELECT p.first_name, p.last_name
+                FROM persons p
+                JOIN targets t ON t.person_id = p.id";
+        $query = $this ->_connexion->prepare($sql);
+        $query->execute();
+
+        $result = $query->fetchAll(PDO::FETCH_ASSOC);
+
+        return $result;
+    }
+
+
+
     public function pagination() {
         $currentPage = isset($_GET['page']) ? (int) $_GET['page'] : 1 ;
 

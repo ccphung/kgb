@@ -37,10 +37,10 @@ class Form
 
     public function debutForm(string $method = '', string $action ='#', array $attributs = []) :self 
     {
-        $this->formCode .="<form action='$action' method='$method'/>";
+        $this->formCode .="<form action='$action' method='$method'";
 
         if($attributs){
-            $this->formCode .= $attributs ? $this->addAttributs($attributs).'>' : '';
+            $this->formCode .= $attributs ? $this->addAttributs($attributs).'>' : '>';
         }
 
         return $this;
@@ -53,6 +53,27 @@ class Form
     public function endForm():self
     {
         $this->formCode .= '</form>';
+        return $this;
+    }
+
+    public function debutFieldSet(array $attributs = [], $legend=''):self
+    {
+        $this->formCode .= '<fieldset';
+
+        if($attributs){
+            $this->formCode .= $attributs ? $this->addAttributs($attributs) : '';
+        }
+
+        $this->formCode .= '>';
+
+        $this->formCode .= '<legend>' . $legend . '</legend>';
+        return $this;
+    }
+
+    public function endFieldset() :self
+    {
+        $this->formCode .= '</fieldset>';
+    
         return $this;
     }
 
@@ -80,7 +101,7 @@ class Form
     {
         $this->formCode .= "<textarea name='$name'"; 
 
-        $this->formCode .= $attributs ? $this->addAttributs($attributs).'>' : '';
+        $this->formCode .= $attributs ? $this->addAttributs($attributs) : '';
 
         $this->formCode .= ">$value</textarea>";
 
@@ -111,6 +132,15 @@ class Form
         $this->formCode .= ">$text</button>";
 
         return $this;
+    }
+
+    function areFieldsFilled($formData) {
+        foreach ($formData as $field) {
+            if (empty($field)) {
+                return false;
+            }
+        }
+        return true; 
     }
 }
 

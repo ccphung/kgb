@@ -1,4 +1,9 @@
 <div class="container-fluid">
+    <?php       
+    if(isset($_SESSION['user']) && !empty($_SESSION['user']['id'])){
+        echo  '<a class="btn btn-primary mt-3" href="/missions/add">Ajouter une mission</a>';
+    }
+    ?>
     <div class="row">
         <h1 class="text-center mt-3">Liste des missions</h1>
         <table class="table table-dark" id="myTable">
