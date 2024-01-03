@@ -20,7 +20,7 @@
                         <li class="card-text">Pays</li>
                     </ul>
 
-                    <a href="/agents" class="btn btn-primary">Liste de agents</a>
+                    <a href="/agents" class="btn btn-primary">Liste des agents</a>
                 </div>
             </div>
         </div>
@@ -34,7 +34,7 @@
                         <li class="card-text">Date de naissance</li>
                         <li class="card-text">Pays</li>
                     </ul>
-                    <a href="/targets" class="btn btn-primary">Liste de cibles</a>
+                    <a href="/targets" class="btn btn-primary">Liste des cibles</a>
                 </div>
             </div>
         </div>
@@ -48,7 +48,7 @@
                         <li class="card-text">Date de naissance</li>
                         <li class="card-text">Pays</li>
                     </ul>
-                    <a href="/contacts" class="btn btn-primary">Liste de contact</a>
+                    <a href="/contacts" class="btn btn-primary">Liste des contacts</a>
                 </div>
             </div>
         </div>
@@ -64,7 +64,7 @@
                         <li class="card-text">Planque</li>
                         <li class="card-text">Agents/Cibles/Contacts</li>
                     </ul>
-                    <a href="/missions" class="btn btn-primary">Liste de missions</a>
+                    <a href="/missions" class="btn btn-primary">Liste des missions</a>
                 </div>
             </div>
         </div>
