@@ -268,7 +268,7 @@ class Missions extends Controller {
             }
 
 
-            $_SESSION['success_message'] = "La mission a bien été créé !";
+            $_SESSION['success_message'] = "La mission a bien été créée !";
             header("Location: /missions");
             exit();
         }
