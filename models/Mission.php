@@ -2,6 +2,17 @@
 require_once('app/Model.php');
 
 class Mission extends Model {
+    public $title;
+    public $description;
+    public $codeName;
+    public $startDate;
+    public $endDate;
+    public $type;
+    public $status;
+    public $specialty;
+    public $stakeout;
+    public $country;
+
     public function __construct(){
         $this->table = "missions";
         $this->getConnexion();
@@ -180,6 +191,29 @@ class Mission extends Model {
         
             $result = $query->fetchAll(PDO::FETCH_ASSOC);
             return $result;
+        }
+
+        public function insertMission()
+        {
+            $sql = "INSERT INTO missions (title, description, code_name, start_date, end_date, mission_type, mission_status, required_specialty, mission_stakeout, takes_place_in) VALUES (:title, :description, :codeName, :startDate, :endDate, :type, :status, :specialty, :stakeout, :country)";
+            $query = $this->_connexion->prepare($sql);
+            
+            $query->bindValue(':title', $this->title, PDO::PARAM_STR);
+            $query->bindValue(':description', $this->description, PDO::PARAM_STR);
+            $query->bindValue(':codeName', $this->codeName, PDO::PARAM_STR);
+            $query->bindValue(':startDate', $this->startDate, PDO::PARAM_STR);
+            $query->bindValue(':endDate', $this->endDate, PDO::PARAM_STR); 
+            $query->bindValue(':type', $this->type, PDO::PARAM_INT);
+            $query->bindValue(':status', $this->status, PDO::PARAM_INT);
+            $query->bindValue(':specialty', $this->specialty, PDO::PARAM_INT);
+            $query->bindValue(':stakeout', $this->stakeout, PDO::PARAM_INT);
+            $query->bindValue(':country', $this->country, PDO::PARAM_INT);
+            
+            $query->execute();
+        }
+
+        public function getLastId(){
+            return $this->_connexion->lastInsertId();
         }
 }
 

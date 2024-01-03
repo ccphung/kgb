@@ -1,5 +1,8 @@
+var agentCountryIds = [];
+
 $(document).ready(function () {
     $('#specialty').change(function () {
+        agentCountryIds = [];
         const specialtySelected = $('#specialty').val();
 
         $.ajax({
@@ -8,7 +11,6 @@ $(document).ready(function () {
             data: { specialtyId: specialtySelected },
             success: function (data) {
                 $('#agent').html(data);
-
             }
         });
     });
@@ -22,7 +24,6 @@ $(document).ready(function () {
             data: { countryId: countrySelected },
             success: function (data) {
                 $('#local').html(data);
-
             }
         });
     });

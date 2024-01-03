@@ -32,6 +32,7 @@ $router->addRoute('GET', '/missions/(\d+)', 'Missions', 'details');
 $router->addRoute('GET', '/missions(\?page=\d+)?$', 'Missions', 'index');
 $router->addRoute('GET', '/missions/add', 'Missions', 'createForm');
 $router->addRoute('POST', '/missions/post', 'Missions', 'processSelection');
+$router->addRoute('POST', '/mission/post', 'Missions', 'processForm');
 $router->addRoute('POST', '/login', 'AuthController', 'login');
 $router->addRoute('GET', '/logout', 'AuthController', 'logout');
 

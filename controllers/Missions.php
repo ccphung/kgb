@@ -1,10 +1,11 @@
 <?php
 require_once('app/Controller.php');
+require_once('models/AgentMission.php');
 
 class Missions extends Controller {
     protected $Mission;
     protected $MissionAgent;
-    private $agentIds = [];
+
 
     public function __construct()
     {
@@ -52,7 +53,6 @@ class Missions extends Controller {
         $specialtiesOptions = [ '' => 'Choisir une spécialité' ] + array_column($specialties, 'name', 'id');
         $status = $this->Mission->getStatus();
         $types = $this->Mission->getTypes();
-        $stakeouts = $this->Mission->getStakeouts();
          
         $title = "Ajout mission";
 
@@ -121,7 +121,6 @@ class Missions extends Controller {
             if (isset($_POST['agentId'])) {
                 $this->generateTargetList($_POST['agentId']);
             }
-            
         }
     }
     
@@ -130,15 +129,28 @@ class Missions extends Controller {
         $codeDisplay = '';
 
         $codeDisplay .= "<legend>Agents qualifiés</legend>";
-        $codeDisplay .= "<label for='agent' id='agents' class='col-12'>Liste des agents :</label>";
+        $codeDisplay .= "<label for='agents' id='agents' class='col-12'>Liste des agents :</label>";
 
         foreach ($agentsSpecialty as $value) {
             $firstName = ucfirst($value['first_name']);
             $lastName = ucfirst($value['last_name']);
             $name = ucfirst($value['name']);
 
-            $codeDisplay .= "<input class='col-6 agents' type='checkbox' id=\"{$value['id']}\" name='agent[]'> {$firstName}  {$lastName} ({$name})</input>";
+            $codeDisplay .= "<input class='col-6 agents' type='checkbox' id=\"{$value['id']}\" name='agents[]' value=\"{$value['id']}\"> {$firstName}  {$lastName} ({$name})</input>";
         }
+
+            $codeDisplay .= 
+            "<script>
+                agentSelected = [];
+                $.ajax({
+                    type: 'POST',
+                    url: '/missions/post',
+                    data: { agentId: agentSelected },
+                    success: function (data) {
+                        $('#target').html('<legend>Cibles</legend>' + data);
+                    }
+                });
+            </script>";
 
         echo $codeDisplay;
     }
@@ -197,5 +209,53 @@ class Missions extends Controller {
         }
 
         echo $codeDisplay;
+    }
+
+    public function processForm() {
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            $title = $_POST["title"];
+            $description = $_POST["description"];
+            $codeName = $_POST["code_name"];
+            $startDate = $_POST["start_date"];
+            $endDate = $_POST["end_date"];
+            $type = $_POST["type"];
+            $status = $_POST["status"];
+            $specialty = $_POST["specialty"];
+            $stakeout = $_POST["stakeout"];
+            $country = $_POST["country"];
+            $agents = $_POST['agents'];
+
+            $agentIds = array_keys(array_filter($agents, function ($value) {
+                return $value === "on";
+            }));
+    
+            $mission = new Mission();
+            $mission->title = $title;
+            $mission->description = $description;
+            $mission->codeName = $codeName;
+            $mission->startDate = $startDate;
+            $mission->endDate = $endDate;
+            $mission->type = $type;
+            $mission->status = $status;
+            $mission->specialty = $specialty;
+            $mission->stakeout = $stakeout;
+            $mission->country = $country;
+
+            $mission->insertMission();
+
+            var_dump($agents);
+
+            foreach ($agents as $agent) {
+                $agentMission = new AgentMission();
+                $agentMission->missionId = $mission->getLastId();
+                $agentMission->agentId = $agent;
+                
+                $agentMission->insertAgentMission();
+            }
+    
+            $_SESSION['success_message'] = "La mission a bien été créé !";
+            header("Location: /missions");
+            exit();
+        }
     }
 }
