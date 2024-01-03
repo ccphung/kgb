@@ -1,11 +1,12 @@
 <?php
 require_once('app/Controller.php');
 require_once('models/AgentMission.php');
+require_once('models/ContactMission.php');
+require_once('models/TargetMission.php');
 
 class Missions extends Controller {
     protected $Mission;
     protected $MissionAgent;
-
 
     public function __construct()
     {
@@ -173,11 +174,12 @@ class Missions extends Controller {
         $codeDisplay .= "</select>";
     
         $codeDisplay .= "<label for='contact' class='col-12'>Contacts :</label>";
+
         foreach ($contacts as $value) {
             $firstName = ucfirst($value['first_name']);
             $lastName = ucfirst($value['last_name']);
 
-            $codeDisplay .= "<input class='col-6' type='checkbox' id=\"{$value['id']}\" name='contact[]'> {$firstName}  {$lastName}</input>";
+            $codeDisplay .= "<input class='col-6 contacts' type='checkbox' id=\"{$value['contact_id']}\" name='contacts[]' value=\"{$value['contact_id']}\"> {$firstName}  {$lastName}</input>";
         }
 
         echo $codeDisplay;
@@ -205,7 +207,7 @@ class Missions extends Controller {
             $lastName = ucfirst($value['last_name']);
             $name = ucfirst($value['name']);
 
-            $codeDisplay .= "<input class='col-6' type='checkbox' id=\"{$value['id']}\" name='target[]'> {$firstName}  {$lastName} ({$name})</input>";
+            $codeDisplay .= "<input class='col-6' type='checkbox' id=\"{$value['id']}\" name='targets[]' value=\"{$value['id']}\"> {$firstName}  {$lastName} ({$name})</input>";
         }
 
         echo $codeDisplay;
@@ -224,10 +226,8 @@ class Missions extends Controller {
             $stakeout = $_POST["stakeout"];
             $country = $_POST["country"];
             $agents = $_POST['agents'];
-
-            $agentIds = array_keys(array_filter($agents, function ($value) {
-                return $value === "on";
-            }));
+            $contacts = $_POST['contacts'];
+            $targets = $_POST['targets'];
     
             $mission = new Mission();
             $mission->title = $title;
@@ -243,8 +243,6 @@ class Missions extends Controller {
 
             $mission->insertMission();
 
-            var_dump($agents);
-
             foreach ($agents as $agent) {
                 $agentMission = new AgentMission();
                 $agentMission->missionId = $mission->getLastId();
@@ -252,7 +250,24 @@ class Missions extends Controller {
                 
                 $agentMission->insertAgentMission();
             }
-    
+
+            foreach ($contacts as $contact) {
+                $contactMission = new ContactMission();
+                $contactMission->missionId = $mission->getLastId();
+                $contactMission->contactId = $contact;
+                
+                $contactMission->insertContactMission();
+            }
+
+            foreach ($targets as $target) {
+                $targetMission = new TargetMission();
+                $targetMission->missionId = $mission->getLastId();
+                $targetMission->targetId = $target;
+                
+                $targetMission->insertTargetMission();
+            }
+
+
             $_SESSION['success_message'] = "La mission a bien été créé !";
             header("Location: /missions");
             exit();

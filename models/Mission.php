@@ -137,7 +137,7 @@ class Mission extends Model {
         }
         
         public function getContactCountry($countryId) {
-            $sql = "SELECT p.first_name, p.last_name, c.id
+            $sql = "SELECT p.first_name, p.last_name, c.id AS country_id, ct.id AS contact_id
                     FROM persons p
                     JOIN contacts ct ON ct.person_id = p.id
                     JOIN countries c ON p.is_from = c.id
