@@ -3,14 +3,17 @@ require_once('app/Controller.php');
 require_once('models/AgentMission.php');
 require_once('models/ContactMission.php');
 require_once('models/TargetMission.php');
+require_once('core/Form.php');
 
 class Missions extends Controller {
     protected $Mission;
     protected $MissionAgent;
+    protected $form;
 
     public function __construct()
     {
         $this->loadModel("Mission");
+        $this->form = new Form();
     }
 
     public function index() {
@@ -59,32 +62,29 @@ class Missions extends Controller {
 
         //Check if user is connected
         if(isset($_SESSION['user']) && !empty($_SESSION['user']['id'])){
-
-            $form = new Form;
-
-            $form->debutForm('POST', '/mission/post', ['id' => 'filters'])
-                    ->debutFieldSet(['class' => 'bg-dark p-3 m-2'], 'Description')
-                        ->addLabelFor('title', 'Titre :')
-                        ->addInput('text', 'title', ['class' => 'col-md-4 m-2'])
-                        ->addLabelFor('code_name', 'Nom de code :')
-                        ->addInput('text', 'code_name', ['class' => 'col-4 m-2'])
-                        ->addLabelFor('description', 'Description :',['class' => 'col-12'])
+            $this->form->debutForm('POST', '/mission/post', ['id' => 'filters', 'class' => 'col-md-8 col-sm-12'])
+                    ->debutFieldSet(['class' => 'bg-dark p-3 m-2'], 'Informations générales')
+                        ->addLabelFor('title', 'Titre :',['class' => 'col-3 mx-2'])
+                        ->addInput('text', 'title', ['class' => 'col-8 mx-2'])
+                        ->addLabelFor('code_name', 'Nom de code :', ['class' => 'col-3 mx-2'])
+                        ->addInput('text', 'code_name', ['class' => 'col-8 m-2'])
+                        ->addLabelFor('description', 'Description :',['class' => 'col-12 mx-2'])
                         ->addTextArea('description', '', ['class' => 'col-12'])
-                        ->addLabelFor('country', 'Pays :', ['class' => 'm-2'])
-                        ->addSelect('country', $countriesOptions, ['id' => 'country', 'class' => 'col-12'])
-                        ->addLabelFor('specialty', 'Spécialité requise :')
-                        ->addSelect('specialty', $specialtiesOptions, ['id' => 'specialty', 'class' => 'col-12 specialty'])
+                        ->addLabelFor('country', 'Pays :', ['class' => 'col-5 mx-2'])
+                        ->addSelect('country', $countriesOptions, ['id' => 'country', 'class' => 'col-5'])
+                        ->addLabelFor('specialty', 'Spécialité requise :',['class' => 'mx-2 col-5'])
+                        ->addSelect('specialty', $specialtiesOptions, ['id' => 'specialty', 'class' => 'col-5 specialty'])
                     ->endFieldset()
 
-                    ->debutFieldSet(['class' => 'bg-dark p-3 m-2'], 'Statut')
-                        ->addLabelFor('type', 'Type :')
-                        ->addSelect('type', array_column($types, 'name', 'id'), ['id' => 'type', 'class' => 'col-5 m-2'])
-                        ->addLabelFor('status', 'Statut :')
-                        ->addSelect('status', array_column($status, 'name', 'id'), ['id' => 'status', 'class' => 'col-4 m-2'])
-                        ->addLabelFor('start_date', 'Date de début :')
-                        ->addInput('date', 'start_date', ['class' => 'col-2 m-2'])
-                        ->addLabelFor('end_date', 'Date de fin :')
-                        ->addInput('date', 'end_date', ['class' => 'col-2 m-2'])
+                    ->debutFieldSet(['class' => 'bg-dark p-3 m-2'], 'Détails')
+                        ->addLabelFor('type', 'Type :', ['class' => 'col-5 mx-2'])
+                        ->addSelect('type', array_column($types, 'name', 'id'), ['id' => 'type', 'class' => 'col-5'])
+                        ->addLabelFor('status', 'Statut :',['class' => 'col-5 mx-2'])
+                        ->addSelect('status', array_column($status, 'name', 'id'), ['id' => 'status', 'class' => 'col-5'])
+                        ->addLabelFor('start_date', 'Date de début :',['class' => 'col-5 mx-2 mt-2'])
+                        ->addInput('date', 'start_date', ['class' => 'col-5'])
+                        ->addLabelFor('end_date', 'Date de fin :',['class' => 'col-5 mx-2'])
+                        ->addInput('date', 'end_date', ['class' => 'col-5'])
                     ->endFieldset()
 
                     ->debutFieldSet(['class' => 'bg-dark p-3 m-2', 'id' => 'local'], 'Planque & Contacts locaux')
@@ -99,7 +99,7 @@ class Missions extends Controller {
                 ->addButton('Créer', ['class' => 'btn btn-primary mt-2 col-12'])
                 ->endForm();
 
-            $this->render('add', ['countries' => $countries, 'title' => $title, 'addMissionForm' => $form->create()], );
+            $this->render('add', ['countries' => $countries, 'title' => $title, 'addMissionForm' => $this->form->create()], );
 
         } else {
             $_SESSION['error_message'] = "Vous devez être connecté(e) pour accéder à cette page";
@@ -140,19 +140,6 @@ class Missions extends Controller {
             $codeDisplay .= "<input class='col-6 agents' type='checkbox' id=\"{$value['id']}\" name='agents[]' value=\"{$value['id']}\"> {$firstName}  {$lastName} ({$name})</input>";
         }
 
-            $codeDisplay .= 
-            "<script>
-                agentSelected = [];
-                $.ajax({
-                    type: 'POST',
-                    url: '/missions/post',
-                    data: { agentId: agentSelected },
-                    success: function (data) {
-                        $('#target').html('<legend>Cibles</legend>' + data);
-                    }
-                });
-            </script>";
-
         echo $codeDisplay;
     }
     
@@ -164,16 +151,16 @@ class Missions extends Controller {
 
         $codeDisplay .= "<legend>Planque & Contacts locaux</legend>";
 
-        $codeDisplay .= "<label for='stakeout' class='col-12'>Planque :</label>";
+        $codeDisplay .= "<label for='stakeout' class='col-3 mx-2'>Planque :</label>";
 
-        $codeDisplay .= "<select for='stakeout' class='col-12' name='stakeout'>";
+        $codeDisplay .= "<select for='stakeout' class='col-6 mx-2' name='stakeout'>";
  
         foreach ($stakeoutCountry as $value) {
             $codeDisplay .= "<option name='stakeout' value='{$value['id']}'>{$value['address']} - {$value['name']}</option>";
         }
         $codeDisplay .= "</select>";
     
-        $codeDisplay .= "<label for='contact' class='col-12'>Contacts :</label>";
+        $codeDisplay .= "<label for='contact' class='col-12 mx-2'>Contacts :</label>";
 
         foreach ($contacts as $value) {
             $firstName = ucfirst($value['first_name']);
@@ -229,48 +216,67 @@ class Missions extends Controller {
             $contacts = $_POST['contacts'];
             $targets = $_POST['targets'];
     
-            $mission = new Mission();
-            $mission->title = $title;
-            $mission->description = $description;
-            $mission->codeName = $codeName;
-            $mission->startDate = $startDate;
-            $mission->endDate = $endDate;
-            $mission->type = $type;
-            $mission->status = $status;
-            $mission->specialty = $specialty;
-            $mission->stakeout = $stakeout;
-            $mission->country = $country;
+            
+            $formData = [
+                'title' => $title,
+                'description' => $description,
+                'codeName '=> $codeName,
+                'startDate' => $startDate,
+                'endDate' => $endDate,
+                'type' => $type,
+                'status' => $status,
+                'specialty' => $specialty,
+                'stakeout' => $stakeout,
+                'country' => $country,
+            ];
 
-            $mission->insertMission();
+            if ($this->form->areFieldsFilled($formData) && !empty($_POST['contacts']) && !empty($_POST['agents']) && !empty($_POST['targets'])) {
+                $mission = new Mission();
+                $mission->title = $title;
+                $mission->description = $description;
+                $mission->codeName = $codeName;
+                $mission->startDate = $startDate;
+                $mission->endDate = $endDate;
+                $mission->type = $type;
+                $mission->status = $status;
+                $mission->specialty = $specialty;
+                $mission->stakeout = $stakeout;
+                $mission->country = $country;
 
-            foreach ($agents as $agent) {
-                $agentMission = new AgentMission();
-                $agentMission->missionId = $mission->getLastId();
-                $agentMission->agentId = $agent;
-                
-                $agentMission->insertAgentMission();
+                $mission->insertMission();
+
+                foreach ($agents as $agent) {
+                    $agentMission = new AgentMission();
+                    $agentMission->missionId = $mission->getLastId();
+                    $agentMission->agentId = $agent;
+                    
+                    $agentMission->insertAgentMission();
+                }
+
+                foreach ($contacts as $contact) {
+                    $contactMission = new ContactMission();
+                    $contactMission->missionId = $mission->getLastId();
+                    $contactMission->contactId = $contact;
+                    
+                    $contactMission->insertContactMission();
+                }
+
+                foreach ($targets as $target) {
+                    $targetMission = new TargetMission();
+                    $targetMission->missionId = $mission->getLastId();
+                    $targetMission->targetId = $target;
+                    
+                    $targetMission->insertTargetMission();
+
+                    $_SESSION['success_message'] = "La mission a bien été créée !";
+                    header("Location: /missions");
+                    exit();
+                }
+            } else {
+                $_SESSION['error_message'] = "Veuillez remplir tous les champs";
+                header("Location: /missions/add");
+                exit();
             }
-
-            foreach ($contacts as $contact) {
-                $contactMission = new ContactMission();
-                $contactMission->missionId = $mission->getLastId();
-                $contactMission->contactId = $contact;
-                
-                $contactMission->insertContactMission();
-            }
-
-            foreach ($targets as $target) {
-                $targetMission = new TargetMission();
-                $targetMission->missionId = $mission->getLastId();
-                $targetMission->targetId = $target;
-                
-                $targetMission->insertTargetMission();
-            }
-
-
-            $_SESSION['success_message'] = "La mission a bien été créée !";
-            header("Location: /missions");
-            exit();
         }
     }
 }

@@ -4,10 +4,12 @@ require_once('models/Person.php');
 
 class Targets extends Controller {
     protected $Target;
+    protected $form;
 
     public function __construct()
     {
         $this->loadModel("Target");
+        $this->form = new Form;
     }
 
     public function index() {
@@ -30,9 +32,7 @@ class Targets extends Controller {
         //Check if user is connected
         if(isset($_SESSION['user']) && !empty($_SESSION['user']['id'])){
 
-            $form = new Form;
-
-            $form->debutForm('POST', '/targets/post')
+            $this->form->debutForm('POST', '/targets/post')
                 ->addLabelFor('firstName', 'Prénom :')
                 ->addInput('text', 'firstName', ['class' => 'form-control required'])
 
@@ -51,7 +51,7 @@ class Targets extends Controller {
                 ->addButton('Créer', ['class' => 'btn btn-primary mt-2 col-12'])
                 ->endForm();
 
-            $this->render('add', ['countries' => $countries, 'title' => $title, 'addTargetForm' => $form->create()], );
+            $this->render('add', ['countries' => $countries, 'title' => $title, 'addTargetForm' => $this->form->create()], );
 
         } else {
             $_SESSION['error_message'] = "Vous devez être connecté(e) pour accéder à cette page";
@@ -61,37 +61,46 @@ class Targets extends Controller {
     }
 
     public function processForm() {
-        //Check if user is connected
-        if(isset($_SESSION['user']) && !empty($_SESSION['user']['id'])){
-
         //Check if form has been sent
             if ($_SERVER["REQUEST_METHOD"] == "POST") {
-
                 $firstName = $_POST["firstName"];
                 $lastName = $_POST["lastName"];
                 $birthDate = $_POST["birthDate"];
                 $countryId = $_POST["country"];
-                $agentCode = $_POST["codeName"];
+                $codeName = $_POST["codeName"];
 
-                $person = new Person();
-                $person->firstName = $firstName;
-                $person->lastName = $lastName;
-                $person->birthDate = $birthDate;
-                $person->nationality = $countryId;
+                $formData = [
+                    'firstName' => $firstName,
+                    'lastName'=> $lastName,
+                    'brithDate' => $birthDate,
+                    'countryId' => $countryId,
+                    'codeName' => $codeName
+                ];
 
-                $person->insertPerson();
+                if ($this->form->areFieldsFilled($formData)) {
+                    $person = new Person();
+                    $person->firstName = $firstName;
+                    $person->lastName = $lastName;
+                    $person->birthDate = $birthDate;
+                    $person->nationality = $countryId;
 
-                $personId = $person->getLastId();
-    
-                $target = new Target();
-                $target->personId = $personId;
-                $target->codeName = $agentCode;
-    
-                $target->insertTarget();
+                    $person->insertPerson();
 
-            $_SESSION['success_message'] = "La cible a bien été créée !";
-            header("Location: /targets");
-            exit();
+                    $personId = $person->getLastId();
+        
+                    $target = new Target();
+                    $target->personId = $personId;
+                    $target->codeName = $codeName;
+        
+                    $target->insertTarget();
+
+                    $_SESSION['success_message'] = "La cible a bien été créée !";
+                    header("Location: /targets");
+                    exit();
+            } else {
+                $_SESSION['error_message'] = "Veuillez remplir tous les champs";
+                header("Location: /targets/add");
+                exit();
             }
         }
     }   

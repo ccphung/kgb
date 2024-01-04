@@ -134,7 +134,7 @@ class Form
         return $this;
     }
 
-    function areFieldsFilled($formData) {
+    public function areFieldsFilled($formData) {
         foreach ($formData as $field) {
             if (empty($field)) {
                 return false;

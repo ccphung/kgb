@@ -4,10 +4,12 @@ require_once('models/Person.php');
 
 class Contacts extends Controller {
     protected $Contact;
+    protected $form;
 
     public function __construct()
     {
         $this->loadModel("Contact");
+        $this->form = new Form();
     }
 
     public function index() {
@@ -63,18 +65,24 @@ class Contacts extends Controller {
     }
 
     public function processForm() {
-        //Check if user is connected
-        if(isset($_SESSION['user']) && !empty($_SESSION['user']['id'])){
-
         //Check if form has been sent
-            if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-                $firstName = $_POST["firstName"];
-                $lastName = $_POST["lastName"];
-                $birthDate = $_POST["birthDate"];
-                $countryId = $_POST["country"];
-                $agentCode = $_POST["codeName"];
+            $firstName = $_POST["firstName"];
+            $lastName = $_POST["lastName"];
+            $birthDate = $_POST["birthDate"];
+            $countryId = $_POST["country"];
+            $codeName = $_POST["codeName"];
 
+            $formData = [
+                'firstName' => $firstName,
+                'lastName'=> $lastName,
+                'brithDate' => $birthDate,
+                'countryId' => $countryId,
+                'codeName' => $codeName
+            ];
+
+            if ($this->form->areFieldsFilled($formData)) {
                 $person = new Person();
                 $person->firstName = $firstName;
                 $person->lastName = $lastName;
@@ -84,16 +92,21 @@ class Contacts extends Controller {
                 $person->insertPerson();
 
                 $personId = $person->getLastId();
-    
+
                 $contact = new Contact();
                 $contact->personId = $personId;
-                $contact->codeName = $agentCode;
-    
+                $contact->codeName = $codeName;
+
                 $contact->insertContact();
 
-            $_SESSION['success_message'] = "Le contact a bien été créé !";
-            header("Location: /contacts");
-            exit();
+                $_SESSION['success_message'] = "Le contact a bien été créé !";
+                header("Location: /contacts");
+                exit();
+
+            } else {
+                $_SESSION['error_message'] = "Veuillez remplir tous les champs";
+                header("Location: /targets/add");
+                exit();
             }
         }
     }   
