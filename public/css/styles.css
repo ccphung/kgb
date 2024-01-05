@@ -4,7 +4,12 @@ body {
     color:white;
     font-family: 'Lato', sans-serif;
 }
+
 h1, h3, h5 {
+    font-family: 'Courier Prime', monospace;
+}
+
+.ff-courrier{
     font-family: 'Courier Prime', monospace;
 }
 

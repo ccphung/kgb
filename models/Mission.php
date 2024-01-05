@@ -37,7 +37,7 @@ class Mission extends Model {
     }
 
     public function getAgentsForMission($missionId) {
-        $sql = "SELECT p.first_name, p.last_name, a.agent_code
+        $sql = "SELECT p.first_name, p.last_name, a.agent_code, a.id AS agent_id
         FROM agent_mission am
         JOIN agents a ON am.agent_id = a.id
         JOIN persons p ON a.person_id = p.id
@@ -54,7 +54,7 @@ class Mission extends Model {
     }
     
     public function getDataForMission($missionId) {
-        $sql = "SELECT s.code, s.address, s.type, cs.name AS stakeout_country, cm.name AS mission_country, rs.name AS required_specialty, st.name AS status, t.name AS mission_type
+        $sql = "SELECT s.code, s.address, s.type, cs.name AS stakeout_country, cm.name AS mission_country, rs.name AS required_specialty, st.name AS status, m.title ,t.name AS mission_type, m.description, start_date, end_date, cs.id AS country_id, rs.id AS rs_id, t.id AS type_id, st.id AS status_id, m.code_name AS mission_codeName, a.id AS agent_id
         FROM missions m
         JOIN stakeouts s ON m.mission_stakeout = s.id
         JOIN countries cs ON s.is_located_in = cs.id
@@ -62,6 +62,8 @@ class Mission extends Model {
         JOIN types t ON m.mission_type = t.id
         JOIN countries cm ON m.takes_place_in = cm.id
         JOIN specialties rs ON m.required_specialty = rs.id
+        JOIN agent_mission am ON am.mission_id = m.id
+        JOIN agents a ON a.id = am.agent_id
         WHERE m.id = :mission_id";
     
         $query = $this->_connexion->prepare($sql);
@@ -73,7 +75,7 @@ class Mission extends Model {
     }
 
     public function getTargetForMission($missionId) {
-        $sql = "SELECT p.first_name, p.last_name, t.code_name
+        $sql = "SELECT p.first_name, p.last_name, t.code_name, t.id
         FROM target_mission tm
         JOIN targets t ON tm.target_id = t.id
         JOIN persons p ON t.person_id = p.id
@@ -90,7 +92,7 @@ class Mission extends Model {
     }
 
     public function getContactForMission($missionId) {
-        $sql = "SELECT p.first_name, p.last_name, c.code_name
+        $sql = "SELECT p.first_name, p.last_name, c.code_name, c.id
         FROM contact_mission cm
         JOIN contacts c ON cm.contact_id = c.id
         JOIN persons p ON c.person_id = p.id

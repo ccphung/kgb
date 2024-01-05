@@ -12,11 +12,17 @@ require_once 'controllers/Missions.php';
 require_once 'controllers/Agents.php';
 require_once 'controllers/Contacts.php';
 require_once 'controllers/Targets.php';
+require_once 'controllers/Admins.php';
 require_once 'controllers/AuthController.php';
 
 
 $router = new Router();
-
+$router->addRoute('GET', '/admin', 'Admins', 'index');
+$router->addRoute('GET', '/admin/missions', 'Admins', 'missions');
+$router->addRoute('GET', '/admin/missions(\?page=\d+)?$', 'Admins', 'missions');
+$router->addRoute('POST', '/admin/mission/modify', 'Admins', 'processSelection');
+$router->addRoute('POST', '/admin/mission/post', 'Admins', 'processForm');
+$router->addRoute('GET', '/admin/mission/modify/(\d+)', 'Admins', 'createForm');
 $router->addRoute('GET', '/home', 'Home', 'index');
 $router->addRoute('GET', '/login', 'Login', 'index');
 $router->addRoute('GET', '/agents(\?page=\d+)?$', 'Agents', 'index');
@@ -42,7 +48,6 @@ $handler = $router->getHandler($method, $uri);
 
 if ($handler == null) {
     echo "La page demandée n'existe pas.";
-    var_dump($_GET);
     echo "URL: " . $_SERVER['REQUEST_URI'];
     exit();
 }

@@ -31,17 +31,11 @@ class Missions extends Controller {
     }
 
     public function details($id) {
-        $this->loadModel("Mission");
         $this->Mission->id = $id;
-
         $mission = $this->Mission->getOne($id);
-
         $agentsForMission = $this->Mission->getAgentsForMission($id);
-
         $missionDatas = $this->Mission->getDataForMission($id);
-
         $targetsForMission = $this->Mission->getTargetForMission($id);
-
         $contactForMission = $this->Mission->getContactForMission($id);
 
         $title = "Detail mission";

@@ -3,6 +3,7 @@
 class Form
 {
     private $formCode ='';
+    private $values = [];
     
     public function create()
     {
@@ -56,7 +57,7 @@ class Form
         return $this;
     }
 
-    public function debutFieldSet(array $attributs = [], $legend=''):self
+    public function debutFieldSet(array $attributs = [], $legend='', $options =''):self
     {
         $this->formCode .= '<fieldset';
 
@@ -67,6 +68,8 @@ class Form
         $this->formCode .= '>';
 
         $this->formCode .= '<legend>' . $legend . '</legend>';
+
+        $this->formCode .= $options;
         return $this;
     }
 
@@ -77,7 +80,7 @@ class Form
         return $this;
     }
 
-    public function addLabelFor(string $for, string $text, array $attributs =[]):self
+    public function addLabelFor(string $for, string $text, array $attributs =[], ):self
     {
         $this->formCode .= "<label for='$for'"; 
 
@@ -108,14 +111,18 @@ class Form
         return $this;
     }
         
-    public function addSelect(string $name, array $options, array $attributs =[]) : self
+    public function addSelect(string $name, array $options, array $attributs =[], $selectedValue = null) : self
     {   
         $this->formCode .= "<select name='$name'";
 
         $this->formCode .= $attributs ? $this->addAttributs($attributs).'>' : '';
 
         foreach($options as $value => $text) {
-            $this->formCode .= "<option value='$value'>$text</option>";
+            if($value == $selectedValue) {
+                $this->formCode .= "<option value='$value' selected>$text</option>";
+            } else {
+                $this->formCode .= "<option value='$value'>$text</option>";
+            }
         }
 
         $this->formCode .= '</select>';

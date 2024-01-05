@@ -23,6 +23,12 @@
               <li class="nav-item">
                   <a class="nav-link" href="/missions">Missions</a>
               </li>
+              <?php if(isset($_SESSION['user'])) {
+                echo 
+                "<li class='nav-item'>
+                    <a class='nav-link ff-courrier bg-green' href='/admin'>Espace admin</a>
+                </li>";
+              }?>
               <li class="nav-item login-nav">
               <a class="nav-link" href="<?php echo isset($_SESSION['user']) ? '/logout' : '/login'; ?>">
                     <span>

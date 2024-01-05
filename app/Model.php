@@ -147,8 +147,6 @@ class Model {
         return $result;
     }
 
-
-
     public function pagination() {
         $currentPage = isset($_GET['page']) ? (int) $_GET['page'] : 1 ;
 
