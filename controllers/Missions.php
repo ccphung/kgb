@@ -261,11 +261,12 @@ class Missions extends Controller {
                     $targetMission->targetId = $target;
                     
                     $targetMission->insertTargetMission();
-
-                    $_SESSION['success_message'] = "La mission a bien été créée !";
-                    header("Location: /missions");
-                    exit();
                 }
+                    
+                $_SESSION['success_message'] = "La mission a bien été créée !";
+                    header("Location: /missions");
+                //     exit();
+
             } else {
                 $_SESSION['error_message'] = "Veuillez remplir tous les champs";
                 header("Location: /missions/add");
