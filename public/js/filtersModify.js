@@ -7,7 +7,7 @@ $(document).ready(function () {
 
         $.ajax({
             type: 'POST',
-            url: '/mission/modify',
+            url: '/admin/mission/modify',
             data: { specialtyId: specialtySelected },
             success: function (data) {
                 $('#agent').html(data);
@@ -20,7 +20,7 @@ $(document).ready(function () {
 
         $.ajax({
             type: 'POST',
-            url: '/mission/modify',
+            url: '/admin/mission/modify',
             data: { countryId: countrySelected },
             success: function (data) {
                 $('#local').html(data);
@@ -42,7 +42,7 @@ $(document).ready(function () {
 
         $.ajax({
             type: 'POST',
-            url: '/mission/modify',
+            url: '/admin/mission/modify',
             data: { agentId: agentSelected },
             success: function (data) {
                 $('#target').html(data);

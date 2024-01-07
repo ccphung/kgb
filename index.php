@@ -17,28 +17,37 @@ require_once 'controllers/AuthController.php';
 
 
 $router = new Router();
+
 $router->addRoute('GET', '/admin', 'Admins', 'index');
 $router->addRoute('GET', '/admin/missions', 'Admins', 'missions');
 $router->addRoute('GET', '/admin/missions(\?page=\d+)?$', 'Admins', 'missions');
 $router->addRoute('POST', '/admin/mission/modify', 'Admins', 'processSelection');
-$router->addRoute('POST', '/admin/mission/post', 'Admins', 'processForm');
+$router->addRoute('POST', '/admin/mission/post/(\d+)', 'Admins', 'processForm');
 $router->addRoute('GET', '/admin/mission/modify/(\d+)', 'Admins', 'createForm');
+$router->addRoute('POST', '/admin/mission/delete/(\d+)', 'Admins', 'processDelete');
+
 $router->addRoute('GET', '/home', 'Home', 'index');
+
 $router->addRoute('GET', '/login', 'Login', 'index');
+
 $router->addRoute('GET', '/agents(\?page=\d+)?$', 'Agents', 'index');
 $router->addRoute('GET', '/agents/add', 'Agents', 'createForm');
-$router->addRoute('POST', '/agents/post', 'Agents', 'processForm');
+$router->addRoute('POST', '/agents/post', 'Agents', 'processForm')
+;
 $router->addRoute('GET', '/contacts(\?page=\d+)?$', 'Contacts', 'index');
 $router->addRoute('GET', '/contacts/add', 'Contacts', 'createForm');
 $router->addRoute('POST', '/contacts/post', 'Contacts', 'processForm');
+
 $router->addRoute('GET', '/targets(\?page=\d+)?$', 'Targets', 'index');
 $router->addRoute('GET', '/targets/add', 'Targets', 'createForm');
 $router->addRoute('POST', '/targets/post', 'Targets', 'processForm');
+
 $router->addRoute('GET', '/missions/(\d+)', 'Missions', 'details');
 $router->addRoute('GET', '/missions(\?page=\d+)?$', 'Missions', 'index');
 $router->addRoute('GET', '/missions/add', 'Missions', 'createForm');
 $router->addRoute('POST', '/missions/post', 'Missions', 'processSelection');
 $router->addRoute('POST', '/mission/post', 'Missions', 'processForm');
+
 $router->addRoute('POST', '/login', 'AuthController', 'login');
 $router->addRoute('GET', '/logout', 'AuthController', 'logout');
 

@@ -213,6 +213,60 @@ class Mission extends Model {
             
             $query->execute();
         }
+        
+        public function updateMission()
+        {
+            $sql = "UPDATE missions 
+            SET title=:title, description=:description, code_name=:codeName, start_date=:startDate, end_date=:endDate, mission_type=:type, mission_status=:status, required_specialty=:specialty, mission_stakeout=:stakeout, takes_place_in=:country
+            WHERE id = :id";
+            
+            $query = $this->_connexion->prepare($sql);
+            $query->bindValue(':id', $this->id, PDO::PARAM_INT);
+            $query->bindValue(':title', $this->title, PDO::PARAM_STR);
+            $query->bindValue(':description', $this->description, PDO::PARAM_STR);
+            $query->bindValue(':codeName', $this->codeName, PDO::PARAM_STR);
+            $query->bindValue(':startDate', $this->startDate, PDO::PARAM_STR);
+            $query->bindValue(':endDate', $this->endDate, PDO::PARAM_STR); 
+            $query->bindValue(':type', $this->type, PDO::PARAM_INT);
+            $query->bindValue(':status', $this->status, PDO::PARAM_INT);
+            $query->bindValue(':specialty', $this->specialty, PDO::PARAM_INT);
+            $query->bindValue(':stakeout', $this->stakeout, PDO::PARAM_INT);
+            $query->bindValue(':country', $this->country, PDO::PARAM_INT);
+            
+            $query->execute();
+        }
+
+        public function deleteAgentMission()
+        {
+            $sql = "DELETE FROM agent_mission WHERE mission_id = :missionId";
+            $query = $this->_connexion->prepare($sql);
+            $query->bindParam(':missionId', $this->id, PDO::PARAM_INT);
+            $query->execute();
+        }
+
+        public function deleteTargetMission()
+        {
+            $sql = "DELETE FROM target_mission WHERE mission_id = :missionId";
+            $query = $this->_connexion->prepare($sql);
+            $query->bindParam(':missionId', $this->id, PDO::PARAM_INT);
+            $query->execute();
+        }
+
+        public function deleteContactMission()
+        {
+            $sql = "DELETE FROM contact_mission WHERE mission_id = :missionId";
+            $query = $this->_connexion->prepare($sql);
+            $query->bindParam(':missionId', $this->id, PDO::PARAM_INT);
+            $query->execute();
+        }
+
+        public function deleteMission()
+        {
+            $sql = "DELETE FROM missions WHERE id = :missionId";
+            $query = $this->_connexion->prepare($sql);
+            $query->bindParam(':missionId', $this->id, PDO::PARAM_INT);
+            $query->execute();
+        }
 
         public function getLastId(){
             return $this->_connexion->lastInsertId();

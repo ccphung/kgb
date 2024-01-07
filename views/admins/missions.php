@@ -1,3 +1,11 @@
+
+<?php
+    if (isset($_SESSION['success_message'])) {
+        echo '<div class="text-success text-center mt-3 bg-green">' . $_SESSION['success_message'] . '</div>';
+        unset($_SESSION['success_message']);
+    }
+?>
+
 <div class="row">
         <h1 class="text-center mt-3">Liste des missions</h1>
         <table class="table table-dark" id="myTable">
@@ -31,8 +39,7 @@
                             <?= ucfirst($mission['status']) ?>
                         </td>
                         <td>
-                            <a href="/admin/mission/modify/<?=$mission['id']?>" class="btn btn-warning">Modifier</a>
-                            <a href="" class="btn btn-danger">Supprimer</a>
+                            <a href="/admin/mission/modify/<?=$mission['id']?>" class="btn btn-warning mx-2 w-50">Modifier</a>
                         </td>
                     </tr>
                 <?php endforeach; ?>
