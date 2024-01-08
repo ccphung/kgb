@@ -1,9 +1,9 @@
 <?php
 require_once('app/Controller.php');
 require_once('core/Form.php');
-require_once('../models/Agent.php');
-require_once('../models/Person.php');
-require_once('../models/AgentSpecialty.php');
+require_once(BASE_URL.'/models/Agent.php');
+require_once(BASE_URL.'/models/Person.php');
+require_once(BASE_URL.'/models/AgentSpecialty.php');
 
 class Agents extends Controller {
     protected $Agent;
