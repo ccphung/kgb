@@ -2,7 +2,7 @@
 
 abstract class Controller {
     public function loadModel(string $model) {
-        require_once('..\\models\\'.$model.'.php');
+        require_once(BASE_URL.'/models/'.$model.'.php');
         $this->$model = new $model();
     }
 
