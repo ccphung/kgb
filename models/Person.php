@@ -10,6 +10,8 @@ class Person extends Model {
     public $is_from;
     public $agentId;
     public $personId;
+    public $contactId;
+    public $targetId;
 
     public function __construct(){
         $this->table = "persons";
@@ -51,15 +53,45 @@ class Person extends Model {
         $query->execute();
     }
 
-    public function deletePerson()
+    public function updateContactPerson()
     {
-        $sql = "DELETE 
-        FROM persons
-        WHERE persons.id = :personId";
-        $query = $this->_connexion->prepare($sql);
+        $sql = "UPDATE persons
+        JOIN contacts ON persons.id = contacts.person_id
+        SET
+            persons.first_name = :firstName,
+            persons.last_name = :lastName,
+            persons.birth_date = :birthDate,
+            persons.is_from = :country
+        WHERE contacts.id = :contactId";
 
-        $query->bindParam(':personId', $this->personId, PDO::PARAM_INT);
+        $query = $this->_connexion->prepare($sql);
+        $query->bindValue(':contactId', $this->contactId, PDO::PARAM_INT);
+        $query->bindValue(':firstName', $this->firstName, PDO::PARAM_STR);
+        $query->bindValue(':lastName', $this->lastName, PDO::PARAM_STR);
+        $query->bindValue(':birthDate', $this->birthDate, PDO::PARAM_STR);
+        $query->bindValue(':country', $this->country, PDO::PARAM_INT);
+
         $query->execute();
     }
 
+    public function updateTargetPerson()
+    {
+        $sql = "UPDATE persons
+        JOIN targets ON persons.id = targets.person_id
+        SET
+            persons.first_name = :firstName,
+            persons.last_name = :lastName,
+            persons.birth_date = :birthDate,
+            persons.is_from = :country
+        WHERE targets.id = :targetId";
+
+        $query = $this->_connexion->prepare($sql);
+        $query->bindValue(':targetId', $this->targetId, PDO::PARAM_INT);
+        $query->bindValue(':firstName', $this->firstName, PDO::PARAM_STR);
+        $query->bindValue(':lastName', $this->lastName, PDO::PARAM_STR);
+        $query->bindValue(':birthDate', $this->birthDate, PDO::PARAM_STR);
+        $query->bindValue(':country', $this->country, PDO::PARAM_INT);
+
+        $query->execute();
+    }
 }

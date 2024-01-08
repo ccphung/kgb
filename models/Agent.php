@@ -8,6 +8,7 @@ class Agent extends Model {
     public $firstName;
     public $lastName;
     public $birthDate;
+    public $agentId;
 
     public function __construct(){
         $this->table = "agents";
@@ -81,7 +82,7 @@ class Agent extends Model {
 
     public function getAgentInfo($agentId) 
     {
-        $sql = "SELECT a.id, p.first_name, p.last_name, p.birth_date, c.name, c.id AS country_id, a.agent_code, s.id AS specialties
+        $sql = "SELECT a.id, p.id AS person_id, p.first_name, p.last_name, p.birth_date, c.name, c.id AS country_id, a.agent_code, s.id AS specialties
         FROM agents a
         JOIN persons p ON p.id = a.person_id
         JOIN countries c ON p.is_from = c.id
@@ -122,11 +123,24 @@ class Agent extends Model {
 
     public function deleteAgent()
     {
-        $sql = "DELETE FROM agents WHERE id = :agentId";
-        $query = $this->_connexion->prepare($sql);
-
-        $query->bindParam(':agentId', $this->id, PDO::PARAM_INT);
-        $query->execute();
+        $sqlDeleteAgentMission = "DELETE FROM agent_mission WHERE agent_id = :agentId";
+        $queryDeleteAgentMission = $this->_connexion->prepare($sqlDeleteAgentMission);
+        $queryDeleteAgentMission->bindParam(':agentId', $this->agentId, PDO::PARAM_INT);
+        $queryDeleteAgentMission->execute();
+    
+        $sqlDeleteAgentSpecialty = "DELETE FROM agent_specialty WHERE agent_id = :agentId";
+        $queryDeleteAgentSpecialty = $this->_connexion->prepare($sqlDeleteAgentSpecialty);
+        $queryDeleteAgentSpecialty->bindParam(':agentId', $this->agentId, PDO::PARAM_INT);
+        $queryDeleteAgentSpecialty->execute();
+    
+        $sqlDeleteAgent = "DELETE FROM agents WHERE id = :agentId";
+        $queryDeleteAgent = $this->_connexion->prepare($sqlDeleteAgent);
+        $queryDeleteAgent->bindParam(':agentId', $this->agentId, PDO::PARAM_INT);
+        $queryDeleteAgent->execute();
+    
+        $sqlDeletePerson = "DELETE FROM persons WHERE id = :personId";
+        $queryDeletePerson = $this->_connexion->prepare($sqlDeletePerson);
+        $queryDeletePerson->bindParam(':personId', $this->personId, PDO::PARAM_INT);
+        $queryDeletePerson->execute();
     }
-
 }

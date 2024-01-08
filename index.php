@@ -29,6 +29,14 @@ $router->addRoute('GET', '/admin/agents(\?page=\d+)?$', 'Admins', 'agents');
 $router->addRoute('GET', '/admin/agent/modify/(\d+)', 'Admins', 'createAgentForm');
 $router->addRoute('POST', '/admin/agent/post/(\d+)', 'Admins', 'processAgentForm');
 $router->addRoute('POST', '/admin/agent/delete/(\d+)', 'Admins', 'processAgentDelete');
+$router->addRoute('GET', '/admin/contacts(\?page=\d+)?$', 'Admins', 'contacts');
+$router->addRoute('GET', '/admin/targets(\?page=\d+)?$', 'Admins', 'targets');
+$router->addRoute('GET', '/admin/target/modify/(\d+)', 'Admins', 'createTargetForm');
+$router->addRoute('GET', '/admin/contact/modify/(\d+)', 'Admins', 'createContactForm');
+$router->addRoute('POST', '/admin/contact/post/(\d+)', 'Admins', 'processContactForm');
+$router->addRoute('POST', '/admin/contact/delete/(\d+)', 'Admins', 'processContactDelete');
+$router->addRoute('POST', '/admin/target/delete/(\d+)', 'Admins', 'processTargetDelete');
+$router->addRoute('POST', '/admin/target/post/(\d+)', 'Admins', 'processTargetForm');
 
 $router->addRoute('GET', '/home', 'Home', 'index');
 

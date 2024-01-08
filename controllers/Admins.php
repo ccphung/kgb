@@ -6,28 +6,41 @@ require_once('models/Agent.php');
 require_once('models/AgentMission.php');
 require_once('models/ContactMission.php');
 require_once('models/TargetMission.php');
-require_once('models/AgentSpecialty.php');
-require_once('models/AgentSpecialty.php');
+require_once('models/Contact.php');
+require_once('models/Target.php');
 
 class Admins extends Controller {
 
     private $mission;
     private $agent;
-    private $MissionForm;
+    private $missionForm;
     private $buttonMissionForm;
     private $buttonAgentForm;
-    private $AgentForm;
+    private $agentForm;
     private $person;
+    private $contact;
+    private $target;
+    private $contactForm;
+    private $targetForm;
+    private $buttonTargetForm;
+    private $buttonContactForm;
+
 
     public function __construct()
     {
         $this->mission = new Mission();
         $this->agent = new Agent();
         $this->person = new Person();
-        $this->MissionForm = new Form();
+        $this->missionForm = new Form();
         $this->buttonMissionForm = new Form();
         $this->buttonAgentForm = new Form();
-        $this->AgentForm = new Form();
+        $this->agentForm = new Form();
+        $this->contact = new Contact();
+        $this->target = new Target();
+        $this->contactForm = new Form();
+        $this->targetForm = new Form();
+        $this->buttonContactForm = new Form();
+        $this->buttonTargetForm = new Form();
     }
 
     public function index() 
@@ -116,7 +129,7 @@ class Admins extends Controller {
                 $countries = $this->generateStaticStakeoutAndContactsList($value['country_id'], $contactIdsArray);
                 $targets = $this->generateStaticTargetList($agentsIds, $targetIdsArray);
             }
-                $this->MissionForm->debutForm('POST', '/admin/mission/post/'.$id, ['id' => 'filters', 'class' => 'col-md-8 col-sm-12'])
+                $this->missionForm->debutForm('POST', '/admin/mission/post/'.$id, ['id' => 'filters', 'class' => 'col-md-8 col-sm-12'])
                     ->debutFieldSet(['class' => 'bg-dark p-3 m-2'], 'Informations générales')
                     ->addLabelFor('title', 'Titre :',['class' => 'col-3 mx-2'])
                     ->addInput('text', 'title', ['class' => 'col-8 mx-2'], htmlspecialchars($value['title'], ENT_QUOTES, 'UTF-8'))
@@ -166,7 +179,7 @@ class Admins extends Controller {
                 ->addButton('Supprimer', ['class' => 'btn btn-danger mt-2 col-12'])
                 ->endForm();
 
-                $this->render('modifyMission', ['countries' => $countries, 'modifyForm' => $this->MissionForm->create(), 'title' => $title, 'contact' => $contactFormission, 'agents' => $agents, 'buttonForm' => $this->buttonMissionForm->create()]);
+                $this->render('modifyMission', ['countries' => $countries, 'modifyForm' => $this->missionForm->create(), 'title' => $title, 'contact' => $contactFormission, 'agents' => $agents, 'buttonForm' => $this->buttonMissionForm->create()]);
 
             } else {
                 $_SESSION['error_message'] = "Vous devez être connecté(e) pour accéder à cette page";
@@ -441,7 +454,7 @@ class Admins extends Controller {
                     'country' => $country,
                 ];
 
-                if ($this->MissionForm->areFieldsFilled($formData) && !empty($_POST['contacts']) && !empty($_POST['agents']) && !empty($_POST['targets'])) {
+                if ($this->missionForm->areFieldsFilled($formData) && !empty($_POST['contacts']) && !empty($_POST['agents']) && !empty($_POST['targets'])) {
                         $this->mission->title = $title;
                         $this->mission->description = $description;
                         $this->mission->codeName = $codeName;
@@ -517,7 +530,7 @@ class Admins extends Controller {
         $currentPage = isset($_GET['page']) ? (int) $_GET['page'] : 1;
 
         $agentList = $this->agent->getAllAgents();
-        $paginationInfo = $this->mission->pagination();
+        $paginationInfo = $this->agent->pagination();
         $title = "Modification missions";
         $specialties = $this->agent->getAgentSpecialties();
 
@@ -551,7 +564,7 @@ class Admins extends Controller {
             $specialties = $this->agent->getSpecialties();
             $title = "Modification agent";
 
-            $this->AgentForm->debutForm('POST', '/admin/agent/post/'.$id)
+            $this->agentForm->debutForm('POST', '/admin/agent/post/'.$id)
             ->addLabelFor('firstName', 'Prénom :')
             ->addInput('text', 'firstName', ['class' => 'form-control', 'required' => 'required'],   ucfirst($agentFirstName))
 
@@ -577,15 +590,15 @@ class Admins extends Controller {
                 $specialtyId = $specialty['id'];
             
                 if(in_array($specialtyId, $specialtyIdsArray )){
-                    $this->AgentForm->addInput('checkbox', 'specialties[]', ['class' => 'form-check-input mt-3 m-2', 'checked' => 'checked'], $specialtyId)
+                    $this->agentForm->addInput('checkbox', 'specialties[]', ['class' => 'form-check-input mt-3 m-2', 'checked' => 'checked'], $specialtyId)
                     ->addLabelFor($key, $specialtyName, ['class' => 'form-check-label mt-3']);
                 } else {
-                    $this->AgentForm->addInput('checkbox', 'specialties[]', ['class' => 'form-check-input mt-3 m-2'], $specialtyId)
+                    $this->agentForm->addInput('checkbox', 'specialties[]', ['class' => 'form-check-input mt-3 m-2'], $specialtyId)
                     ->addLabelFor($key, $specialtyName, ['class' => 'form-check-label mt-3']);
                 }
             }
 
-            $this->AgentForm->addButton('Enregistrer', ['class' => 'btn btn-primary mt-2 col-12'])
+            $this->agentForm->addButton('Enregistrer', ['class' => 'btn btn-primary mt-2 col-12'])
             ->endForm();
 
             
@@ -593,7 +606,7 @@ class Admins extends Controller {
             ->addButton('Supprimer', ['class' => 'btn btn-danger mt-2 col-12'])
             ->endForm();
 
-             $this->render('modifyAgent', ['countries' => $countries, 'title' => $title, 'modifyForm' => $this->AgentForm->create(), 'deleteButton' => $this->buttonAgentForm->create()] );
+             $this->render('modifyAgent', ['countries' => $countries, 'title' => $title, 'modifyForm' => $this->agentForm->create(), 'deleteButton' => $this->buttonAgentForm->create()] );
 
         } else {
             $_SESSION['error_message'] = "Vous devez être connecté(e) pour accéder à cette page";
@@ -613,7 +626,6 @@ class Admins extends Controller {
     
     public function processAgentForm($id) {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            $this->getAgentId();
             $agentCode = $_POST["agentCode"];
             $firstName = $_POST["firstName"];
             $lastName = $_POST["lastName"];
@@ -621,8 +633,6 @@ class Admins extends Controller {
             $specialties = $_POST["specialties"];
             $country = $_POST["country"];
             $agents = $this->agent->getAgentInfo($id);
-            $agentId = $_SESSION['agentId'];
-            var_dump($country);
 
             foreach($agents as $key => $value){
                 $agentId = $value['id'];
@@ -630,9 +640,13 @@ class Admins extends Controller {
 
             $formData = [
                 'agentCode' => $agentCode,
+                'firstName' => $firstName,
+                'lastName' => $lastName,
+                'birthDate' => $birthDate,
+                'country' => $country,
             ];
 
-            if ($this->AgentForm->areFieldsFilled($formData) && !empty($_POST['specialties'])) {
+            if ($this->agentForm->areFieldsFilled($formData) && !empty($_POST['specialties'])) {
 
                 $this->agent->agentCode = $agentCode;
                 $this->agent->id = $agentId;
@@ -681,24 +695,291 @@ class Admins extends Controller {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $this->getAgentIdForDelete();
                 $agentId = $_SESSION['agent_id'];
+                var_dump($agentId);
 
                 $this->agent->id = $agentId;
+                $this->agent->agentId = $agentId;
                 $agents = $this->agent->getAgentInfo($agentId);
 
                 foreach($agents as $key => $value){
                     $personId = $value['person_id'];
                 }
+                var_dump($personId);
 
                 $this->person->personId = $personId;
 
-                $this->agent->deleteAgentSpecialty();
-                $this->person->deletePerson();
                 $this->agent->deleteAgent();
 
-            $_SESSION['success_message'] = "L'agent a bien été supprimée";
+            $_SESSION['success_message'] = "L'agent a bien été supprimé";
             header("Location: /admin/agents");
             exit();
         }
     }
+
+    public function contacts()
+    {
+        if($this->isAdmin()){
+        $currentPage = isset($_GET['page']) ? (int) $_GET['page'] : 1;
+
+        $contacts = $this->contact->getAllContacts();
+        $paginationInfo = $this->contact->pagination();
+        $title = "Modification contact";
+
+        $this->render('contacts', [
+            'contacts' => $contacts,
+            'pagination' => $paginationInfo,
+            'currentPage' => $currentPage,
+            'title' => $title,
+        ]);
+        }
+    }
+
+    public function targets()
+    {
+        if($this->isAdmin()){
+        $currentPage = isset($_GET['page']) ? (int) $_GET['page'] : 1;
+
+        $targets = $this->target->getAllTargets();
+        $paginationInfo = $this->target->pagination();
+        $title = "Modification cibles";
+
+        $this->render('targets', [
+            'targets' => $targets,
+            'pagination' => $paginationInfo,
+            'currentPage' => $currentPage,
+            'title' => $title,
+        ]);
+        }
+    }
+
+    public function createContactForm($id) {
+        $countries = $this->contact->getCountries();
+        $title = "Modification contact";
+
+        $contacts = $this->contact->getContactInfo($id);
+
+        foreach($contacts as $key => $value){
+            $firstName = $value['first_name'];
+            $lastName = $value['last_name'];
+            $birthDate = $value['birth_date'];
+            $country = $value['country_id'];
+            $codeName = $value['code_name'];
+        }
+
+        //Check if user is connected
+        if(isset($_SESSION['user']) && !empty($_SESSION['user']['id'])){
+            $this->contactForm->debutForm('POST', '/admin/contact/post/' .$id)
+                ->addLabelFor('firstName', 'Prénom :')
+                ->addInput('text', 'firstName', ['class' => 'form-control required'], ucfirst($firstName))
+
+                ->addLabelFor('lastName', 'Nom :')
+                ->addInput('text', 'lastName', ['class' => 'form-control'], ucfirst($lastName))
+
+                ->addLabelFor('birthDate', 'Date de naissance :')
+                ->addInput('date', 'birthDate', ['class' => 'form-control'], $value['birth_date'])
+
+                ->addLabelFor('country', 'Nationalité :')
+                ->addSelect('country', array_column($countries, 'name', 'id'), ['id' => 'country', 'class' => 'form-control'], $country)
+
+                ->addLabelFor('codeName', 'Nom de code :')
+                ->addInput('text', 'codeName', ['class' => 'form-control'],$codeName)
+
+                ->addButton('Enregistrer', ['class' => 'btn btn-primary mt-2 col-12'])
+                ->endForm();
+
+                $this->buttonContactForm->debutForm('POST', '/admin/contact/delete/'.$id)
+                ->addButton('Supprimer', ['class' => 'btn btn-danger mt-2 col-12'])
+                ->endForm();
+
+                $this->render('modifyContact', ['countries' => $countries, 'title' => $title, 'modifyForm' => $this->contactForm->create(), 'deleteButton' => $this->buttonContactForm->create()]);
+
+        } else {
+            $_SESSION['error_message'] = "Vous devez être connecté(e) pour accéder à cette page";
+            header('Location: /login');
+            exit();
+        }
+    }
+
+    public function createTargetForm($id) {
+        $countries = $this->target->getCountries();
+        $title = "Modification cible";
+
+        $targets = $this->target->getTargetInfo($id);
+
+        foreach($targets as $key => $value){
+            $firstName = $value['first_name'];
+            $lastName = $value['last_name'];
+            $birthDate = $value['birth_date'];
+            $country = $value['country_id'];
+            $codeName = $value['code_name'];
+        }
+
+        //Check if user is connected
+        if(isset($_SESSION['user']) && !empty($_SESSION['user']['id'])){
+
+            $this->targetForm->debutForm('POST', '/admin/target/post/' .$id)
+                ->addLabelFor('firstName', 'Prénom :')
+                ->addInput('text', 'firstName', ['class' => 'form-control required'],ucfirst($firstName))
+
+                ->addLabelFor('lastName', 'Nom :')
+                ->addInput('text', 'lastName', ['class' => 'form-control'],ucfirst($lastName))
+
+                ->addLabelFor('birthDate', 'Date de naissance :')
+                ->addInput('date', 'birthDate', ['class' => 'form-control'], $birthDate)
+
+                ->addLabelFor('country', 'Nationalité :')
+                ->addSelect('country', array_column($countries, 'name', 'id'), ['id' => 'country', 'class' => 'form-control'], $country)
+
+                ->addLabelFor('codeName', 'Nom de code :')
+                ->addInput('text', 'codeName', ['class' => 'form-control'], $codeName)
+
+                ->addButton('Enregistrer', ['class' => 'btn btn-primary mt-2 col-12'])
+                ->endForm();
+
+                $this->buttonTargetForm->debutForm('POST', '/admin/target/delete/'.$id)
+                ->addButton('Supprimer', ['class' => 'btn btn-danger mt-2 col-12'])
+                ->endForm();
+
+            $this->render('modifyTarget', ['countries' => $countries, 'title' => $title, 'modifyForm' => $this->targetForm->create(), 'deleteButton' => $this->buttonTargetForm->create()] );
+
+        } else {
+            $_SESSION['error_message'] = "Vous devez être connecté(e) pour accéder à cette page";
+            header('Location: /login');
+            exit();
+        }
+    }
+
+    public function processContactForm($id) {
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            $firstName = $_POST["firstName"];
+            $lastName = $_POST["lastName"];
+            $birthDate = $_POST["birthDate"];
+            $country = $_POST["country"];
+            $codeName = $_POST["codeName"];
+
+            $contacts = $this->contact->getContactInfo($id);
+
+            foreach($contacts as $key => $value){
+                $contactId = $value['id'];
+            }
+
+            $formData = [
+                'firstName' => $firstName,
+                'lastName' => $lastName,
+                'birthDate' => $birthDate,
+                'country' => $country,
+                'codeName' => $codeName
+            ];
+
+            if ($this->contactForm->areFieldsFilled($formData)) {
+
+                $this->contact->codeName = $codeName;
+                $this->contact->contactId = $contactId;
+
+                $this->contact->updateContact();
+
+                $this->person->firstName = $firstName;
+                $this->person->lastName = $lastName;
+                $this->person->birthDate = $birthDate;
+                $this->person->contactId = $contactId;
+                $this->person->country = $country;
+
+                $this->person->updateContactPerson();
+                
+                $_SESSION['success_message'] = "Le contact a bien été modifié !";
+                header("Location: /admin/contacts");
+                exit();
+
+            } else {
+                echo "Veuillez remplir tous les champs. Cliquer sur précédent pour revenir sur le formulaire";
+            }
+        }
+    }
+
+    public function processTargetForm($id) {
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            $firstName = $_POST["firstName"];
+            $lastName = $_POST["lastName"];
+            $birthDate = $_POST["birthDate"];
+            $country = $_POST["country"];
+            $codeName = $_POST["codeName"];
+
+            $targets = $this->target->getTargetInfo($id);
+
+            foreach($targets as $key => $value){
+                $targetId = $value['id'];
+            }
+
+            $formData = [
+                'firstName' => $firstName,
+                'lastName' => $lastName,
+                'birthDate' => $birthDate,
+                'country' => $country,
+                'codeName' => $codeName
+            ];
+
+            if ($this->targetForm->areFieldsFilled($formData)) {
+
+                $this->target->codeName = $codeName;
+                $this->target->targetId = $targetId;
+
+                $this->target->updateTarget();
+
+                $this->person->firstName = $firstName;
+                $this->person->lastName = $lastName;
+                $this->person->birthDate = $birthDate;
+                $this->person->targetId = $targetId;
+                $this->person->country = $country;
+
+                $this->person->updateTargetPerson();
+                
+                $_SESSION['success_message'] = "La cible a bien été modifiée !";
+                header("Location: /admin/targets");
+                exit();
+
+            } else {
+                echo "Veuillez remplir tous les champs. Cliquer sur précédent pour revenir sur le formulaire";
+            }
+        }
+    }
+
+    public function processTargetDelete($id)
+    {
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            $targets = $this->target->getTargetInfo($id);
+
+            foreach($targets as $key => $value){
+                $targetId = $value['id'];
+                $personId = $value['person_id'];
+            }
+                $this->target->targetId = $targetId;
+                $this->target->personId = $personId;
+                $this->target->deleteTarget();
+
+            $_SESSION['success_message'] = "La cible a bien été supprimée";
+            header("Location: /admin/targets");
+            exit();
+        }
+    }
+
+    public function processContactDelete($id)
+    {
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            $contacts = $this->contact->getContactInfo($id);
+
+            foreach($contacts as $key => $value){
+                $contactId = $value['id'];
+                $personId = $value['person_id'];
+            }
+                $this->contact->contactId = $contactId;
+                $this->contact->personId = $personId;
+                $this->contact->deleteContact();
+
+            $_SESSION['success_message'] = "Le contact a bien été supprimé";
+            header("Location: /admin/contacts");
+            exit();
+        }
+    }
+
 }
 

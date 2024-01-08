@@ -11,6 +11,6 @@
         <a class="btn btn-primary m-2" href="/admin/contacts">Gérer les contacts</a>
     </li>
     <li class="list-unstyled">
-        <a class="btn btn-primary m-2" href="/admin/cibles">Gérer les cibles</a>
+        <a class="btn btn-primary m-2" href="/admin/targets">Gérer les cibles</a>
     </li>
 </ul>
