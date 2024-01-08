@@ -1,7 +1,7 @@
 <?php
 
 require_once('models/Admin.php');
-require_once('models/mission.php');
+require_once('models/Mission.php');
 require_once('models/Agent.php');
 require_once('models/AgentMission.php');
 require_once('models/ContactMission.php');
