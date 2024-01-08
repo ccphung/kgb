@@ -12,7 +12,7 @@ abstract class Controller {
         //Démarrage du buffer
         ob_start();
 
-        require_once(BASE_URL.'\\views\\'.strtolower(get_class($this)).'\\'.$file.'.php');
+        require_once(BASE_URL.'/views/'.strtolower(get_class($this)).'/'.$file.'.php');
 
         $content = ob_get_clean();
 
