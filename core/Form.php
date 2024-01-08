@@ -40,11 +40,7 @@ class Form
     {
         $this->formCode .="<form action='$action' method='$method'";
 
-        if($attributs){
-            $this->formCode .= $attributs ? $this->addAttributs($attributs).'>' : '>';
-        }
-
-        $this->formCode .= '>';
+        $this->formCode .= $attributs ? $this->addAttributs($attributs).'>' : '>';
 
         return $this;
     }
