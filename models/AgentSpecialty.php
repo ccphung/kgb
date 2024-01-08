@@ -20,6 +20,4 @@ class AgentSpecialty extends Model {
     public function getLastId(){
         return $this->_connexion->lastInsertId();
     }
-
-
 }

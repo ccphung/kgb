@@ -1,8 +1,8 @@
-<h1 class="text-center mt-3">Modifier la mission</h1>
+<h1 class="text-center mt-3">Modifier l'agent</h1>
 
 <div class="container">
     <div class="row d-flex justify-content-center">
-        <div class="col">
+        <div>
             <?php echo $modifyForm; ?>
             <?php echo $buttonForm; ?>
         </div>

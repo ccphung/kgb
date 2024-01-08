@@ -22,9 +22,13 @@ $router->addRoute('GET', '/admin', 'Admins', 'index');
 $router->addRoute('GET', '/admin/missions', 'Admins', 'missions');
 $router->addRoute('GET', '/admin/missions(\?page=\d+)?$', 'Admins', 'missions');
 $router->addRoute('POST', '/admin/mission/modify', 'Admins', 'processSelection');
-$router->addRoute('POST', '/admin/mission/post/(\d+)', 'Admins', 'processForm');
-$router->addRoute('GET', '/admin/mission/modify/(\d+)', 'Admins', 'createForm');
-$router->addRoute('POST', '/admin/mission/delete/(\d+)', 'Admins', 'processDelete');
+$router->addRoute('POST', '/admin/mission/post/(\d+)', 'Admins', 'processMissionForm');
+$router->addRoute('GET', '/admin/mission/modify/(\d+)', 'Admins', 'createMissionForm');
+$router->addRoute('POST', '/admin/mission/delete/(\d+)', 'Admins', 'processMissionDelete');
+$router->addRoute('GET', '/admin/agents(\?page=\d+)?$', 'Admins', 'agents');
+$router->addRoute('GET', '/admin/agent/modify/(\d+)', 'Admins', 'createAgentForm');
+$router->addRoute('POST', '/admin/agent/post/(\d+)', 'Admins', 'processAgentForm');
+$router->addRoute('POST', '/admin/agent/delete/(\d+)', 'Admins', 'processAgentDelete');
 
 $router->addRoute('GET', '/home', 'Home', 'index');
 

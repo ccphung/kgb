@@ -44,6 +44,8 @@ class Form
             $this->formCode .= $attributs ? $this->addAttributs($attributs).'>' : '>';
         }
 
+        $this->formCode .= '>';
+
         return $this;
     }
 
