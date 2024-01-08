@@ -4,6 +4,7 @@ require_once('app/Model.php');
 class AgentMission extends Model {
     public $agentId;
     public $missionId;
+    public $personId;
 
     public function __construct(){
         $this->table = "agent_mission";
