@@ -38,7 +38,7 @@ class Contact extends Model {
         $sql = "INSERT INTO contacts (person_id, code_name) VALUES (:personId, :codeName)";
         $query = $this->_connexion->prepare($sql);
         $query->bindValue(':personId', $this->personId, PDO::PARAM_INT);
-        $query->bindValue(':codeName', $this->codeName, PDO::PARAM_INT);
+        $query->bindValue(':codeName', $this->codeName, PDO::PARAM_STR);
         
         $query->execute();
 
