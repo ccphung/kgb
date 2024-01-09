@@ -1,7 +1,4 @@
 <?php 
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
-
 define('BASE_URL', __DIR__);
 
 require_once 'app/Controller.php';
@@ -38,7 +35,7 @@ $router->addRoute('POST', '/admin/contact/delete/(\d+)', 'Admins', 'processConta
 $router->addRoute('POST', '/admin/target/delete/(\d+)', 'Admins', 'processTargetDelete');
 $router->addRoute('POST', '/admin/target/post/(\d+)', 'Admins', 'processTargetForm');
 
-$router->addRoute('GET', '/home', 'Home', 'index');
+$router->addRoute('GET', '/', 'Home', 'index');
 
 $router->addRoute('GET', '/login', 'Login', 'index');
 
