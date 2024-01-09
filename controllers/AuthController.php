@@ -31,7 +31,7 @@ class AuthController {
                     if ($authenticated) {
                         $this->user->setSession();
                         echo "Authentification réussie !";
-                        header('Location: /home');
+                        header('Location: /');
                         exit();
                     } else {
                         $_SESSION['error_message'] = "Adresse email et/ou mot de passe incorrect";
