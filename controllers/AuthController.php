@@ -43,7 +43,7 @@ class AuthController {
 
     public function logout(){
         unset($_SESSION['user']);
-        header('Location: /home');
+        header('Location: /');
         exit();
     }
 }
