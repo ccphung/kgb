@@ -2,9 +2,9 @@
 
 class Model {
     private $host = "eu-cluster-west-01.k8s.cleardb.net";
-    private $db_name = "heroku_81a7cc806491498";
-    private $username = 'bc7c69d510816c';
-    private $password = '9208849b';
+    private $db_name = "heroku_9b2c035b4dce5e1";
+    private $username = 'bd67e1f07f9128';
+    private $password = '81ef2b2f';
 
     //Protected : les enfants doivent pouvoir la modifier
     protected $_connexion;
