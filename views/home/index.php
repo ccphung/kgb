@@ -1,4 +1,8 @@
 <?php
+    if (isset($_SESSION['error_message'])) {
+        echo '<div class="text-danger text-center mt-3 bg-pink">' . $_SESSION['error_message'] . '</div>';
+        unset($_SESSION['error_message']);
+    }
     if(isset($_SESSION['user'])){
         echo "<h1 class='m-3'> Bonjour Agent " . $_SESSION['user']['last_name'] . "</h1>"; 
     } else {

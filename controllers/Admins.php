@@ -946,19 +946,24 @@ class Admins extends Controller {
     public function processTargetDelete($id)
     {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            $targets = $this->target->getTargetInfo($id);
+            if (!isset($_POST['csrf_token']) || $_POST['csrf_token'] !== $_SESSION['csrf_token']) {
+                $_SESSION['error_message'] = "Une erreur est survenue";
+                header('Location: /');
+            } else {
+                $targets = $this->target->getTargetInfo($id);
 
-            foreach($targets as $key => $value){
-                $targetId = $value['id'];
-                $personId = $value['person_id'];
+                foreach($targets as $key => $value){
+                    $targetId = $value['id'];
+                    $personId = $value['person_id'];
+                }
+                    $this->target->targetId = $targetId;
+                    $this->target->personId = $personId;
+                    $this->target->deleteTarget();
+
+                $_SESSION['success_message'] = "La cible a bien été supprimée";
+                header("Location: /admin/targets");
+                exit();
             }
-                $this->target->targetId = $targetId;
-                $this->target->personId = $personId;
-                $this->target->deleteTarget();
-
-            $_SESSION['success_message'] = "La cible a bien été supprimée";
-            header("Location: /admin/targets");
-            exit();
         }
     }
 

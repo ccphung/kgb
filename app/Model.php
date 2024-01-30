@@ -1,10 +1,10 @@
 <?php
 
 class Model {
-    private $host = "eu-cluster-west-01.k8s.cleardb.net";
-    private $db_name = "heroku_9b2c035b4dce5e1";
-    private $username = 'bd67e1f07f9128';
-    private $password = '81ef2b2f';
+    private $host = "localhost";
+    private $db_name = "kgb2";
+    private $username = 'admin_user';
+    private $password = '4Tle1u4cTmUiI8Q6';
 
     //Protected : les enfants doivent pouvoir la modifier
     protected $_connexion;

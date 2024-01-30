@@ -16,8 +16,8 @@ class User extends Model {
     public function authenticateUser($email, $password) {
 
         $sql = "SELECT * FROM admins WHERE email = :email";
-
         $query = $this->_connexion->prepare($sql);
+
         $query->bindParam(':email', $email);
         $query->execute();
 
@@ -48,5 +48,6 @@ class User extends Model {
             'first_name' => $this->first_name,
             'last_name' => $this->last_name
         ];
+        $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
     }
     }
